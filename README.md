@@ -1,12 +1,14 @@
 # SoSoReads
 *Another Node Goodreads wrapper*
 
-Apparently when Amazon acquired Goodreads they decided to ship the half-built API and never finish it. Thanks, Amazon.
+Apparently when Amazon acquired Goodreads they decided to ship their [half-built API](https://www.goodreads.com/api) and never finish it. Thanks, Amazon.
 
 So there are lots of wrappers: 
 - [Goodreads](https://github.com/sosedoff/goodreads) (Ruby) looks like the most popular.
 - [BetterReads](https://github.com/thejessleigh/betterreads) (Python) was my first name idea and looks great. It was built on goodreads2, another Python wrapper.
-- I haven't looked at them in-depth yet, but there are a bunch of Node versions: [fff-graphql-goodreads](https://github.com/mpj/fff-graphql-goodreads), [goodreads-api-node](https://github.com/baahrens/goodreads-api-node), [goodreads.js](https://github.com/AnalogJ/goodreads.js), [goodreads-json](https://github.com/rosnovsky/goodreads-json), [goodreads-json-api](https://github.com/myke11j/goodreads-json-api), [Goodreads review JSON export](https://github.com/remy/goodreads), and [node-goodreads](https://github.com/bdickason/node-goodreads). They are mostly incomplete and I want a cleaner interface.
+- I haven't looked at them in-depth yet, but there are a bunch of Node versions: [fff-graphql-goodreads](https://github.com/mpj/fff-graphql-goodreads), [goodreads-api-node](https://github.com/baahrens/goodreads-api-node), [goodreads.js](https://github.com/AnalogJ/goodreads.js), [goodreads-json](https://github.com/rosnovsky/goodreads-json), [goodreads-json-api](https://github.com/myke11j/goodreads-json-api), [Goodreads review JSON export](https://github.com/remy/goodreads), and [node-goodreads](https://github.com/bdickason/node-goodreads). 
+
+My goal with sosoreads is to provide a clean interface to the book-related resources. I will not implement the social resources (friends, notifications, etc.).
 
 
 ## To Do
@@ -138,7 +140,7 @@ Goodreads API endpoints:
 
 
 
-## Goodreads resources not implementing
+## Not planning to implement
 - auth
 - author_following
 - events
@@ -147,10 +149,10 @@ Goodreads API endpoints:
 - friend
 - friends
 - group
-- list
+- list (not sure what Listopia is, and this resource requires "extra permission" to use)
 - notifications
-- quotes
-- recommendations
+- quotes (only functionality is creating quotes)
+- recommendations (user-to-user recommendations, only functionality is retrieving individual recommendation)
 - topic
 - updates
 - work
