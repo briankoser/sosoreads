@@ -11,26 +11,100 @@ So there are lots of wrappers:
 
 ## To Do
 
-### Authentication 
-Goodreads API endpoints: 
-- auth
+### Installation
+
+- [ ] Add to npm
+
+```
+npm install --save sosoreads
+const sosoreads = require('sosoreads');
+```
 
 
 
-### Authors
-Goodreads API endpoints: 
-- author
-- search
+### Initialization
+
+```js
+const options = {
+  developer_key: 'YOUR_GOODREADS_DEVELOPER_KEY'
+};
+
+const api = sosoreads(options);
+```
+
+
+
+### Author
+
+#### Example Request
+
+```js
+const options = {
+    id: 2687,
+    name: "Simmons"
+};
+
+api.getAuthor(options).then(author => {});
+```
+
+#### Example Response
+```json
+{
+    "about": "<b>Dan Simmons</b> grew up in various cities and small towns in the Midwest, including Brimfield, Illinois, which was the source of his fictional \"Elm Haven\" in 1991's SUMMER OF NIGHT and 2002's A WINTER HAUNTING.",
+    "booksCount": 188,
+    "dates": {
+        "born": "1948-04-04",
+        "died": "2024-07-09"
+    },
+    "followerCount": 8641,
+    "gender": "male",
+    "id": 2687,
+    "hometown": "Peoria, Illinois",
+    "image": {
+        "large": "https://images.gr-assets.com/authors/1427999015p7/2687.jpg",
+        "medium": "https://images.gr-assets.com/authors/1427999015p5/2687.jpg",
+        "small": "https://images.gr-assets.com/authors/1427999015p2/2687.jpg"
+    },
+    "influences": [{
+            "id": 7415,
+            "name": "Harlan Ellison",
+            "url": "https://www.goodreads.com/author/show/7415.Harlan_Ellison"
+        }, {
+            "id": 3389,
+            "name": "Stephen King",
+            "url": "https://www.goodreads.com/author/show/3389.Stephen_King"
+        }],
+    "name": "Dan Simmons",
+    "url": "https://www.goodreads.com/author/show/2687.Dan_Simmons"
+}
+```
+
+
+#### Comments
+
+If `goodreadsAuthorId` is provided, `authorName` is ignored.
+
+#### Goodreads API endpoints
+- author.show
+- search.author
 
 
 
 ### Books
 Goodreads API endpoints: 
+- author.books
 - book
 - comment
 - owned_books
 - rating
 - search
+
+```js
+const options = {
+    goodreadsAuthorId: 2687,
+    maxBooks: 30 // paginate the number of books returned; defaults to 30
+}
+```
 
 
 
@@ -59,11 +133,13 @@ Goodreads API endpoints:
 - user_status
 
 
+
 ## Done
 
 
 
 ## Goodreads resources not implementing
+- auth
 - author_following
 - events
 - fanship
