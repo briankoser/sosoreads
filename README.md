@@ -8,7 +8,7 @@ So there are lots of wrappers:
 - [BetterReads](https://github.com/thejessleigh/betterreads) (Python) was my first name idea and looks great. It was built on goodreads2, another Python wrapper.
 - I haven't looked at them in-depth yet, but there are a bunch of Node versions: [fff-graphql-goodreads](https://github.com/mpj/fff-graphql-goodreads), [goodreads-api-node](https://github.com/baahrens/goodreads-api-node), [goodreads.js](https://github.com/AnalogJ/goodreads.js), [goodreads-json](https://github.com/rosnovsky/goodreads-json), [goodreads-json-api](https://github.com/myke11j/goodreads-json-api), [Goodreads review JSON export](https://github.com/remy/goodreads), and [node-goodreads](https://github.com/bdickason/node-goodreads). 
 
-My goal with sosoreads is to provide a clean interface to the book-related resources. I will not implement the social resources (friends, notifications, etc.).
+My goal with sosoreads is to provide a clean interface to the book-related resources. I will not implement the social resources (friends, notifications, etc.). v1 will be read-only. v2 will provide writing.
 
 
 ## To Do
@@ -38,11 +38,18 @@ const api = sosoreads(options);
 
 ### Author
 
-#### Example Request
+#### Example Requests
 
 ```js
 const options = {
-    authorId: 2687,
+    authorId: 2687
+};
+
+api.getAuthor(options).then(author => {});
+```
+
+```js
+const options = {
     authorName: "Simmons"
 };
 
@@ -92,14 +99,31 @@ If `authorId` is provided, `authorName` is ignored.
 
 
 
+### Book
+
+#### Goodreads API endpoints
+- book
+- search
+
+
+
 ### Books
 
-#### Example Request
+#### Example Requests
 
 ```js
 const options = {
     authorId: 1654,
-    retrieveAllBooks: true // Goodreads only returns 30 books at a time when searching by author; to return all books, sosoreads makes multiple Goodreads API calls. Default is false.
+    retrieveAllBooks: true // Goodreads only returns 30 books at a time when retrieving by author; to return all books, sosoreads makes multiple Goodreads API calls. Default is false.
+}
+
+api.getBooks(options).then(books => {});
+```
+
+```js
+const options = {
+    searchQuery: "going postal", // search matches against title and author fields
+    retrieveAllBooks: true // Goodreads only returns 30 books at a time when searching; to return all books, sosoreads makes multiple Goodreads API calls. Default is false.
 }
 
 api.getBooks(options).then(books => {});
@@ -140,29 +164,12 @@ api.getBooks(options).then(books => {});
 }]
 ```
 
-
 #### Comments
-
-
+If `authorId` is provided, `searchQuery` is ignored.
 
 #### Goodreads API endpoints
 - author.books
-
-- book
-- comment
-- owned_books
-- rating
-- search
-
-
-
-### Book
-
-
-
-### Reviews
-Goodreads API endpoints: 
-- review
+- search.books
 
 
 
@@ -170,11 +177,6 @@ Goodreads API endpoints:
 Goodreads API endpoints: 
 - series
 
-
-
-### Shelves
-Goodreads API endpoints: 
-- shelves
 
 
 ### User
@@ -186,6 +188,19 @@ Goodreads API endpoints:
 
 
 
+### UserBook
+Goodreads API endpoints: 
+- owned_books
+- review
+
+
+
+### UserShelves
+Goodreads API endpoints: 
+- shelves
+
+
+
 ## Done
 
 
@@ -193,6 +208,7 @@ Goodreads API endpoints:
 ## Not planning to implement
 - auth
 - author_following
+- comment
 - events
 - fanship
 - followers
