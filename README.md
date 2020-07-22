@@ -42,8 +42,8 @@ const api = sosoreads(options);
 
 ```js
 const options = {
-    id: 2687,
-    name: "Simmons"
+    authorId: 2687,
+    authorName: "Simmons"
 };
 
 api.getAuthor(options).then(author => {});
@@ -84,7 +84,7 @@ api.getAuthor(options).then(author => {});
 
 #### Comments
 
-If `goodreadsAuthorId` is provided, `authorName` is ignored.
+If `authorId` is provided, `authorName` is ignored.
 
 #### Goodreads API endpoints
 - author.show
@@ -93,20 +93,70 @@ If `goodreadsAuthorId` is provided, `authorName` is ignored.
 
 
 ### Books
-Goodreads API endpoints: 
+
+#### Example Request
+
+```js
+const options = {
+    authorId: 1654,
+    retrieveAllBooks: true // Goodreads only returns 30 books at a time when searching by author; to return all books, sosoreads makes multiple Goodreads API calls. Default is false.
+}
+
+api.getBooks(options).then(books => {});
+```
+
+#### Example Response
+```json
+[{
+    "authorIds": [
+        "1654"
+    ],
+    "averageRating": "4.39",
+    "descriptions": {
+      "short": "Arch-swindler Moist Van Lipwig never believed his confidence crimes were hanging offenses - until he found himself with a noose tightly around his neck, dropping through a trapdoor, and falling into...a government job?",
+      "full": "Arch-swindler Moist Van Lipwig never believed his confidence crimes were hanging offenses - until he found himself with a noose tightly around his neck, dropping through a trapdoor, and falling into...a government job?\nBy all rights, Moist should have met his maker. Instead, it's Lord Vetinari, supreme ruler of Ankh-Morpork, who promptly offers him a job as Postmaster. Since his only other option is a nonliving one, Moist accepts the position - and the hulking golem watchdog who comes along with it, just in case Moist was considering abandoning his responsibilities prematurely.\nGetting the moribund Postal Service up and running again, however, may be a near-impossible task, what with literally mountains of decades-old undelivered mail clogging every nook and cranny of the broken-down post office building; and with only a few creaky old postmen and one rather unstable, pin-obsessed youth available to deliver it. Worse still, Moist could swear the mail is talking to him. Worst of all, it means taking on the gargantuan, money-hungry Grand Trunk clacks communication monopoly and its bloodthirsty piratical head, Mr. Reacher Gilt.\nBut it says on the building Neither Rain Nor Snow Nor Glom of Nit...Inspiring words (admittedly, some of the bronze letters have been stolen), and for once in his wretched life Moist is going to fight. And if the bold and impossible are what's called for, he'll do it - in order to move the mail, continue breathing, get the girl, and specially deliver that invaluable commodity that every human being (not to mention troll, dwarf, and, yes, even golem) requires: hope."
+    },
+    "id": 64222,
+    "image": {
+        "large": "https://images.gr-assets.com/authors/1427999015p7/2687.jpg",
+        "medium": "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+        "small": "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png"
+    },
+    "isbn": "0060502932",
+    "isbn13": "9780060502935",
+    "pageCount": "394",
+    "publicationYear": "2005",
+    
+    "ratingsCount": "99904",
+    "series": [{
+        "name": "Discworld",
+        "number": 33
+    }, {
+        "name": "Moist von Lipwig",
+        "number": 1
+    }],
+    "title": "Going Postal",
+    "url": "https://www.goodreads.com/book/show/64222.Going_Postal"
+}]
+```
+
+
+#### Comments
+
+
+
+#### Goodreads API endpoints
 - author.books
+
 - book
 - comment
 - owned_books
 - rating
 - search
 
-```js
-const options = {
-    goodreadsAuthorId: 2687,
-    maxBooks: 30 // paginate the number of books returned; defaults to 30
-}
-```
+
+
+### Book
 
 
 
