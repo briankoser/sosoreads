@@ -226,12 +226,6 @@ If `authorId` is provided, `searchQuery` is ignored.
 
 
 
-### Series
-Goodreads API endpoints: 
-- series
-
-
-
 ### User
 Goodreads API endpoints: 
 - read_statuses
@@ -272,6 +266,7 @@ Goodreads API endpoints:
 - notifications
 - quotes (only functionality is creating quotes)
 - recommendations (user-to-user recommendations, only functionality is retrieving individual recommendation)
+- series (included in Book and Books; no interesting information that isn't there)
 - topic
 - updates
 - work
