@@ -109,12 +109,16 @@ If `authorId` is provided, `authorName` is ignored.
 const options = {
     bookId: "853510"
 }
+
+api.getBook(options).then(book => {});
 ```
 
 ```js
 const options = {
     isbn: "0007119313"
 }
+
+api.getBook(options).then(book => {});
 ```
 
 #### Example Response
@@ -227,9 +231,55 @@ If `authorId` is provided, `searchQuery` is ignored.
 
 
 ### User
-Goodreads API endpoints: 
+
+#### Example Requests
+
+```js
+const options = {
+    userId: "4812558"
+}
+
+api.getUser(options).then(user => {});
+```
+
+#### Example Response
+```json
+[{
+    "bookCount": 2228,
+    "date": {
+        "lastActive": "2020-07",
+        "join": "2011-01"
+    },
+    "favoriteAuthors": [{
+        "8842"
+    }],
+    "favorites": "Science-fiction, fantasy, Christian, the classics, quirky non-fiction, history, mystery...",
+    "id": "4812558",
+    "image": {
+        "large": "https://images.gr-assets.com/users/1529893704p3/4812558.jpg",
+        "small": "https://images.gr-assets.com/users/1529893704p2/4812558.jpg"
+    },
+    "interests": "Reading, web programming, modern board games",
+    "location": "Mobile, AL",
+    "name": "Brian Koser",
+    "rss": {
+        "reviews": "https://www.goodreads.com/review/list_rss/4812558?key=39eMNtqSb_HWJQpihlEiCX178ZHpyQDxjiWtnFFtNeWZMUSK&shelf=%23ALL%23",
+        "updates": "https://www.goodreads.com/user/updates_rss/4812558?key=39eMNtqSb_HWJQpihlEiCX178ZHpyQDxjiWtnFFtNeWZMUSK"
+    },
+    "url": {
+        "goodreads": "https://www.goodreads.com/user/show/4812558-brian-koser",
+        "personal": "http://koser.us"
+    }
+}]
+```
+
+#### Comments
+- `bookCount` is the number of books shelved
+
+#### Goodreads API endpoints
+- user.show
+
 - read_statuses
-- user
 - user_shelves
 - user_status
 
@@ -245,6 +295,12 @@ Goodreads API endpoints:
 ### UserShelves
 Goodreads API endpoints: 
 - shelves
+
+
+
+### UserUpdates
+Goodreads API endpoints: 
+- user.show
 
 
 
