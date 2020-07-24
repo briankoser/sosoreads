@@ -77,7 +77,7 @@ api.getAuthor(options).then(author => {});
     "gender": "male",
     "id": "2687",
     "hometown": "Peoria, Illinois",
-    "image": {
+    "images": {
         "large": "https://images.gr-assets.com/authors/1427999015p7/2687.jpg",
         "medium": "https://images.gr-assets.com/authors/1427999015p5/2687.jpg",
         "small": "https://images.gr-assets.com/authors/1427999015p2/2687.jpg"
@@ -133,7 +133,7 @@ api.getBook(options).then(book => {});
     "authors": [{
         "averageRating": "3.81",
         "id": "903",
-        "image": {
+        "images": {
             "large": "https://images.gr-assets.com/authors/1390672749p7/903.jpg",
             "small": "https://images.gr-assets.com/authors/1390672749p2/903.jpg"
         },
@@ -144,7 +144,7 @@ api.getBook(options).then(book => {});
     }, {
         "averageRating": "3.89",
         "id": "1005",
-        "image": {
+        "images": {
             "large": "https://images.gr-assets.com/authors/1279895687p5/1005.jpg",
             "small": "https://images.gr-assets.com/authors/1279895687p2/1005.jpg"
         },
@@ -158,7 +158,7 @@ api.getBook(options).then(book => {});
         "full": "This groundbreaking English version by Robert Fagles is the most important recent translation of Homer's great epic poem. The verse translation has been hailed by scholars as the new standard, providing an Iliad that delights modern sensibility and aesthetic without sacrificing the grandeur and particular genius of Homer's own style and language. The Iliad is one of the two great epics of Homer, and is typically described as one of the greatest war stories of all time, but to say the Iliad is a war story does not begin to describe the emotional sweep of its action and characters: Achilles, Helen, Hector, and other heroes of Greek myth and history in the tenth and final year of the Greek siege of Troy."
     },
     "id": "117929",
-    "image": {
+    "images": {
         "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SX98_.jpg",
         "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SY75_.jpg"
     },
@@ -197,7 +197,7 @@ api.getBook(options).then(book => {});
             "url": "https://www.goodreads.com/author/show/919.Virgil"
         },
         "id": "12914",
-        "image": {
+        "images": {
             "large": "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
             "small": "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png"
         },
@@ -217,7 +217,7 @@ api.getBook(options).then(book => {});
             "url": "https://www.goodreads.com/author/show/4699102.Unknown"
         },
         "id": "52357",
-        "image": {
+        "images": {
             "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SX98_.jpg",
             "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SY75_.jpg"
         },
@@ -277,7 +277,7 @@ api.getBooks(options).then(books => {});
     "authors": [{
         "averageRating": "3.81",
         "id": "903",
-        "image": {
+        "images": {
             "large": "https://images.gr-assets.com/authors/1390672749p7/903.jpg",
             "small": "https://images.gr-assets.com/authors/1390672749p2/903.jpg"
         },
@@ -288,7 +288,7 @@ api.getBooks(options).then(books => {});
     }, {
         "averageRating": "3.89",
         "id": "1005",
-        "image": {
+        "images": {
             "large": "https://images.gr-assets.com/authors/1279895687p5/1005.jpg",
             "small": "https://images.gr-assets.com/authors/1279895687p2/1005.jpg"
         },
@@ -302,7 +302,7 @@ api.getBooks(options).then(books => {});
         "full": "This groundbreaking English version by Robert Fagles is the most important recent translation of Homer's great epic poem. The verse translation has been hailed by scholars as the new standard, providing an Iliad that delights modern sensibility and aesthetic without sacrificing the grandeur and particular genius of Homer's own style and language. The Iliad is one of the two great epics of Homer, and is typically described as one of the greatest war stories of all time, but to say the Iliad is a war story does not begin to describe the emotional sweep of its action and characters: Achilles, Helen, Hector, and other heroes of Greek myth and history in the tenth and final year of the Greek siege of Troy."
     },
     "id": "117929",
-    "image": {
+    "images": {
         "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SX98_.jpg",
         "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SY75_.jpg"
     },
@@ -341,7 +341,7 @@ api.getBooks(options).then(books => {});
             "url": "https://www.goodreads.com/author/show/919.Virgil"
         },
         "id": "12914",
-        "image": {
+        "images": {
             "large": "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
             "small": "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png"
         },
@@ -361,7 +361,7 @@ api.getBooks(options).then(books => {});
             "url": "https://www.goodreads.com/author/show/4699102.Unknown"
         },
         "id": "52357",
-        "image": {
+        "images": {
             "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SX98_.jpg",
             "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SY75_.jpg"
         },
@@ -411,26 +411,72 @@ api.getUser(options).then(user => {});
 ```json
 [{
     "bookCount": 2228,
-    "date": {
+    "dates": {
         "lastActive": "2020-07",
         "join": "2011-01"
     },
     "favoriteAuthors": [{
-        "8842"
+        "id: "8842",
+        "name": "Susanna Clarke"
     }],
     "favorites": "Science-fiction, fantasy, Christian, the classics, quirky non-fiction, history, mystery...",
     "id": "4812558",
-    "image": {
+    "images": {
         "large": "https://images.gr-assets.com/users/1529893704p3/4812558.jpg",
         "small": "https://images.gr-assets.com/users/1529893704p2/4812558.jpg"
     },
     "interests": "Reading, web programming, modern board games",
     "location": "Mobile, AL",
     "name": "Brian Koser",
+    "recentUpdates": [{
+        "excerpt": "Emoji Bible > LolCats Bible <a target="_blank" href="https://en.m.wikipedia.org/wiki/LOLCat_Bible_Translation_Project" rel="nofollow">https://en.m.wikipedia.org/wiki/LOLCa...</a>",
+        "location": "Melissa's review",
+        "timestamp": "2020-07-22T18:13:24-07:00",
+        "type: "comment",
+        "url": "https://www.goodreads.com/review/show/3443441422"
+    }, {
+        "book": {
+            "authors": [{
+                "id": "4788285",
+                "name": "Tara Gilesbie",
+                "ratings": {
+                    "average": "3.88",
+                    "count": 1275
+                },
+                "role": "author",
+                "images": {
+                     "large": "https://s.gr-assets.com/assets/nophoto/user/f_200x266-3061b784cc8e7f021c6430c9aba94587.png",
+                     "small": "https://s.gr-assets.com/assets/nophoto/user/f_50x66-6a03a5c12233c941481992b82eea8d23.png"
+                },
+                "url": "https://www.goodreads.com/author/show/4788285.Tara_Gilesbie"
+            ]],
+            "id": "11099295",
+            "title": "My Immortal",
+            "url": "https://www.goodreads.com/book/show/11099295-my-immortal"
+        },
+        "excerpt": "The newest "worst thing I've ever read". I mostly enjoyed reading it for the podcast, but eventually it got tiresome.<br/><br/>Some of the mistakes seem too good for it not to be a hoax:<br/><br/>- Tom Bombodil<br/>- We hugged each udder happily.<br/>- “Yah, siriusly [...]” Serious said deviantly.<br/><br/>If it's not a hoax, I guess some<a href="https://www.goodreads.com/review/show/3411248043">more...</a>",
+        "rating": 1,
+        "timestamp": "2020-07-19T20:51:24-07:00",
+        "type: "review",
+        "url": "https://www.goodreads.com/review/show/3411248043"
+    }],
     "rss": {
         "reviews": "https://www.goodreads.com/review/list_rss/4812558?key=39eMNtqSb_HWJQpihlEiCX178ZHpyQDxjiWtnFFtNeWZMUSK&shelf=%23ALL%23",
         "updates": "https://www.goodreads.com/user/updates_rss/4812558?key=39eMNtqSb_HWJQpihlEiCX178ZHpyQDxjiWtnFFtNeWZMUSK"
     },
+    "shelves": [{
+        "count": 1197,
+        "featured": true,
+        "exclusive": true,
+        "id": "15377251",
+        "name": "read"
+    }, {
+        "count": 12,
+        "featured": false,
+        "exclusive": false,
+        "id": "302308344",
+        "name": "372-pages"
+    }],
     "url": {
         "goodreads": "https://www.goodreads.com/user/show/4812558-brian-koser",
         "personal": "http://koser.us"
@@ -440,6 +486,14 @@ api.getUser(options).then(user => {});
 
 #### Comments
 - `bookCount` is the number of books shelved
+- `shelves.exclusive` allows you to have one set of 
+- `recentUpdates.type` possible values:
+  - comment
+    - `location`
+  - review
+    - `book`
+    - `rating` field with value 1-5
+  - readstatus
 
 #### Goodreads API endpoints
 - user.show
