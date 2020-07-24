@@ -429,6 +429,12 @@ api.getUser(options).then(user => {});
     "location": "Mobile, AL",
     "name": "Brian Koser",
     "recentUpdates": [{
+        "action": "wants to read",
+        "bookId": "200138",
+        "timestamp": "2020-07-22T18:13:24-07:00",
+        "type: "readstatus",
+        "url": "https://www.goodreads.com/read_statuses/3763771994"
+    }, {
         "excerpt": "Emoji Bible > LolCats Bible <a target="_blank" href="https://en.m.wikipedia.org/wiki/LOLCat_Bible_Translation_Project" rel="nofollow">https://en.m.wikipedia.org/wiki/LOLCa...</a>",
         "location": "Melissa's review",
         "timestamp": "2020-07-22T18:13:24-07:00",
@@ -494,6 +500,8 @@ api.getUser(options).then(user => {});
     - `book`
     - `rating` field with value 1-5
   - readstatus
+    - `action`
+    - `bookId` - lots of book information is provided (some not available from any other endpoint), but also much is missing, so we will just return `bookId`
 
 #### Goodreads API endpoints
 - user.show
