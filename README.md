@@ -15,11 +15,15 @@ Null or empty fields will not be returned.
 
 
 ## To Do
-
-### Installation
-
+- [ ] Request/response contracts
+- [ ] Basic structure
+- [ ] Author
+- [ ] Book, Books
+- [ ] User
+- [ ] Tests
 - [ ] Add to npm
 
+### Installation
 ```
 npm install --save sosoreads
 const sosoreads = require('sosoreads');
@@ -28,7 +32,6 @@ const sosoreads = require('sosoreads');
 
 
 ### Initialization
-
 ```js
 const options = {
   developer_key: 'YOUR_GOODREADS_DEVELOPER_KEY'
@@ -42,7 +45,6 @@ const api = sosoreads(options);
 ### Author
 
 #### Example Requests
-
 ```js
 const options = {
     authorId: "2687"
@@ -63,6 +65,7 @@ api.getAuthor(options).then(author => {});
 ```json
 {
     "about": "<b>Dan Simmons</b> grew up in various cities and small towns in the Midwest, including Brimfield, Illinois, which was the source of his fictional \"Elm Haven\" in 1991's SUMMER OF NIGHT and 2002's A WINTER HAUNTING.",
+    "averageRating": "4.08",
     "booksCount": 188,
     "dates": {
         "born": "1948-04-04",
@@ -87,16 +90,18 @@ api.getAuthor(options).then(author => {});
             "url": "https://www.goodreads.com/author/show/3389.Stephen_King"
         }],
     "name": "Dan Simmons",
+    "ratingsCount": 4184744,
     "url": "https://www.goodreads.com/author/show/2687.Dan_Simmons"
 }
 ```
 
 #### Comments
-
-If `authorId` is provided, `authorName` is ignored.
+- If `authorId` is provided, `authorName` is ignored.
+- Calls Goodreads endpoint `book.show` to get `averageRating` and `ratingsCount`.
 
 #### Goodreads API endpoints
 - author.show
+- book.show
 - search.author
 
 
@@ -104,7 +109,6 @@ If `authorId` is provided, `authorName` is ignored.
 ### Book
 
 #### Example Requests
-
 ```js
 const options = {
     bookId: "853510"
@@ -124,13 +128,21 @@ api.getBook(options).then(book => {});
 #### Example Response
 ```json
 {
-    "authorIds": [
-        "123715"
-    ],
+    "authors": [{
+        "averageRating": "3.17",
+        "id": "123715",
+        "image": {
+            "large": "https://images.gr-assets.com/users/1529893704p3/4812558.jpg",
+            "small": "https://images.gr-assets.com/users/1529893704p2/4812558.jpg"
+        },
+        "name": "Agatha Christie",
+        "ratingsCount": 361512,
+        "url": "https://www.goodreads.com/author/show/123715.Agatha_Christie"
+    }],
     "averageRating": "4.17",
     "descriptions": {
-      "short": "Just after midnight, a snowdrift stops the Orient Express in its tracks.",
-      "full": "Just after midnight, a snowdrift stops the Orient Express in its tracks. The luxurious train is surprisingly full for the time of the year, but by the morning it is one passenger fewer. An American tycoon lies dead in his compartment, stabbed a dozen times, his door locked from the inside.<br /><br />Isolated and with a killer in their midst, detective Hercule Poirot must identify the murderer—in case he or she decides to strike again."
+        "short": "Just after midnight, a snowdrift stops the Orient Express in its tracks.",
+        "full": "Just after midnight, a snowdrift stops the Orient Express in its tracks. The luxurious train is surprisingly full for the time of the year, but by the morning it is one passenger fewer. An American tycoon lies dead in his compartment, stabbed a dozen times, his door locked from the inside.<br /><br />Isolated and with a killer in their midst, detective Hercule Poirot must identify the murderer—in case he or she decides to strike again."
     },
     "id": "853510",
     "image": {
@@ -139,10 +151,10 @@ api.getBook(options).then(book => {});
     },
     "isbn": "0007119313",
     "isbn13": "9780007119318",
-    "pageCount": "347",
+    "pageCount": 347,
     "publicationYear": "1934",
     "publisher": "HarperCollins",
-    "ratingsCount": "361512",
+    "ratingsCount": 361512,
     "series": [{
         "count": 45,
         "name": "Hercule Poirot",
@@ -154,7 +166,10 @@ api.getBook(options).then(book => {});
 ```
 
 #### Comments
-If `bookId` is provided, `isbn` is ignored.
+- If `bookId` is provided, `isbn` is ignored.
+- `description.long` is provided by Goodreads. `description.short` will be the first sentence on the long description.
+- `pageCount` and `publisher` are obviously dependent on edition; I don't know how Goodreads determines which edition to provide.
+- `publicationYear` will be a negative number for books published BC.
 
 #### Goodreads API endpoints
 - book.show
@@ -165,11 +180,10 @@ If `bookId` is provided, `isbn` is ignored.
 ### Books
 
 #### Example Requests
-
 ```js
 const options = {
     authorId: "1654",
-    retrieveAllBooks: true // Goodreads only returns 30 books at a time when retrieving by author; to return all books, sosoreads makes multiple Goodreads API calls. Default is false.
+    retrieveAllBooks: false
 }
 
 api.getBooks(options).then(books => {});
@@ -177,8 +191,8 @@ api.getBooks(options).then(books => {});
 
 ```js
 const options = {
-    searchQuery: "going postal", // search matches against title and author fields
-    retrieveAllBooks: true // Goodreads only returns 30 books at a time when searching; to return all books, sosoreads makes multiple Goodreads API calls. Default is false.
+    searchQuery: "going postal",
+    retrieveAllBooks: false
 }
 
 api.getBooks(options).then(books => {});
@@ -187,9 +201,17 @@ api.getBooks(options).then(books => {});
 #### Example Response
 ```json
 [{
-    "authorIds": [
-        "1654"
-    ],
+    "authors": [{
+        "averageRating": "4.17",
+        "id": "1654",
+        "image": {
+            "large": "https://images.gr-assets.com/users/1529893704p3/4812558.jpg",
+            "small": "https://images.gr-assets.com/users/1529893704p2/4812558.jpg"
+        },
+        "name": "Terry Pratchett",
+        "ratingsCount": 361512,
+        "url": "https://www.goodreads.com/author/show/1654.Terry_Pratchett"
+    }],
     "averageRating": "4.39",
     "descriptions": {
       "short": "Arch-swindler Moist Van Lipwig never believed his confidence crimes were hanging offenses - until he found himself with a noose tightly around his neck, dropping through a trapdoor, and falling into...a government job?",
@@ -203,10 +225,10 @@ api.getBooks(options).then(books => {});
     },
     "isbn": "0060502932",
     "isbn13": "9780060502935",
-    "pageCount": "394",
+    "pageCount": 394,
     "publicationYear": "2005",
     "publisher": "HarperTorch",
-    "ratingsCount": "99904",
+    "ratingsCount": 99904,
     "series": [{
         "count": 41,
         "name": "Discworld",
@@ -222,7 +244,9 @@ api.getBooks(options).then(books => {});
 ```
 
 #### Comments
-If `authorId` is provided, `searchQuery` is ignored.
+- If `authorId` is provided, `searchQuery` is ignored.
+- Goodreads only returns 30 books at a time when retrieving by author. To return all books, set `retrieveAllBooks` to `true` and sosoreads will make multiple Goodreads API calls. Default is false.
+- `searchQuery` search matches against title and author fields
 
 #### Goodreads API endpoints
 - author.books
@@ -233,7 +257,6 @@ If `authorId` is provided, `searchQuery` is ignored.
 ### User
 
 #### Example Requests
-
 ```js
 const options = {
     userId: "4812558"
