@@ -113,7 +113,7 @@ api.getAuthor(options).then(author => {});
 #### Example Requests
 ```js
 const options = {
-    bookId: "853510"
+    bookId: "117929"
 }
 
 api.getBook(options).then(book => {});
@@ -121,7 +121,7 @@ api.getBook(options).then(book => {});
 
 ```js
 const options = {
-    isbn: "0007119313"
+    isbn: "0140445927"
 }
 
 api.getBook(options).then(book => {});
@@ -255,7 +255,7 @@ api.getBook(options).then(book => {});
 #### Example Requests
 ```js
 const options = {
-    authorId: "1654",
+    authorId: "903",
     retrieveAllBooks: false
 }
 
@@ -264,7 +264,7 @@ api.getBooks(options).then(books => {});
 
 ```js
 const options = {
-    searchQuery: "going postal",
+    searchQuery: "iliad",
     retrieveAllBooks: false
 }
 
