@@ -11,7 +11,11 @@ So there are lots of wrappers:
 ## General Notes
 My goal with Sosoreads is to provide a clean interface to the book-related resources. However, I will prioritize performance over "purity". For example, if I were building an API from scratch, I would only return authorIds and role with a book; but Sosoreads will also return the additional author information provided by Goodreads. 
 
-I will not implement the social resources (friends, notifications, etc.). v1 will be read-only. v2 will provide writing.
+I will not implement the social resources (friends, notifications, etc.). 
+
+- v1 - read-only resources
+- v2 - write resources (comment)
+- v3 - resources requiring OAuth (updates)
 
 Null or empty fields will not be returned.
 
@@ -24,6 +28,8 @@ Null or empty fields will not be returned.
 - [ ] User
 - [ ] Tests
 - [ ] Add to npm
+- [ ] v2 write resources (comment)
+- [ ] v3 resources requiring OAuth (updates)
 
 ### Installation
 ```
@@ -36,7 +42,7 @@ const sosoreads = require('sosoreads');
 ### Initialization
 ```js
 const options = {
-  developer_key: 'YOUR_GOODREADS_DEVELOPER_KEY'
+    "developer_key": 'YOUR_GOODREADS_DEVELOPER_KEY'
 };
 
 const api = sosoreads(options);
@@ -49,7 +55,7 @@ const api = sosoreads(options);
 #### Example Requests
 ```js
 const options = {
-    authorId: "2687"
+    "authorId": "2687"
 };
 
 api.getAuthor(options).then(author => {});
@@ -57,7 +63,7 @@ api.getAuthor(options).then(author => {});
 
 ```js
 const options = {
-    authorName: "Simmons"
+    "authorName": "Simmons"
 };
 
 api.getAuthor(options).then(author => {});
@@ -113,7 +119,7 @@ api.getAuthor(options).then(author => {});
 #### Example Requests
 ```js
 const options = {
-    bookId: "117929"
+    "bookId": "117929"
 }
 
 api.getBook(options).then(book => {});
@@ -121,7 +127,7 @@ api.getBook(options).then(book => {});
 
 ```js
 const options = {
-    isbn: "0140445927"
+    "isbn": "0140445927"
 }
 
 api.getBook(options).then(book => {});
@@ -255,8 +261,8 @@ api.getBook(options).then(book => {});
 #### Example Requests
 ```js
 const options = {
-    authorId: "903",
-    retrieveAllBooks: false
+    "authorId": "903",
+    "retrieveAllBooks": false
 }
 
 api.getBooks(options).then(books => {});
@@ -264,8 +270,8 @@ api.getBooks(options).then(books => {});
 
 ```js
 const options = {
-    searchQuery: "iliad",
-    retrieveAllBooks: false
+    "searchQuery": "iliad",
+    "retrieveAllBooks": false
 }
 
 api.getBooks(options).then(books => {});
@@ -396,6 +402,57 @@ api.getBooks(options).then(books => {});
 
 
 
+### Series
+#### Example Requests
+```js
+const options = {
+    "authorId": "7963"
+}
+
+api.getSeries(options).then(series => {});
+```
+
+#### Example Response
+```json
+{
+    "author": {
+        "id": "7963",
+        "name": "P.G. Wodehouse"
+    },
+    "series": [{
+        "bestBook": {
+            "id": "1094403",
+            "title": "The Man With Two Left Feet and Other Stories",
+            "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348936569l/1094403._SX98_.jpg"
+            "published": "1917"
+        }
+        "bookCount": "16",
+        "description": "P.G. Wodehouse's series of comic novels featuring young British dilettante Bertram \"Bertie\" Wooster, and his wry valet Jeeves, who is often the cause of his salvation from increasingly entangled social situations.",
+        "id": "52643",
+        "title": "Jeeves"
+    }, {
+        "bestBook": {
+            "id": "13707720",
+            "title": "Leave it to Psmith",
+            "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1342025763l/13707720._SX98_.jpg"
+            "published": "1923"
+        }
+        "bookCount": "12",
+        "description": "P.G. Wodehouse's stories set at Blandings Castle.",
+        "id": "60684",
+        "title": "Blandings Castle"
+    }]
+}
+```
+
+#### Comments
+- Goodreads makes you retrieve a single series by some weird combination of an ID (not the series ID provided in the book resource) and slug; I don't see the point in implementing that since I'm not sure how to get that combination ID. To get a single series by `bookId` or `isbn`, use `getBook()`.
+
+#### Goodreads API endpoints
+- series.list
+
+
+
 ### User
 
 #### Example Requests
@@ -416,7 +473,7 @@ api.getUser(options).then(user => {});
         "join": "2011-01"
     },
     "favoriteAuthors": [{
-        "id: "8842",
+        "id": "8842",
         "name": "Susanna Clarke"
     }],
     "favorites": "Science-fiction, fantasy, Christian, the classics, quirky non-fiction, history, mystery...",
@@ -435,10 +492,10 @@ api.getUser(options).then(user => {});
         "type: "readstatus",
         "url": "https://www.goodreads.com/read_statuses/3763771994"
     }, {
-        "excerpt": "Emoji Bible > LolCats Bible <a target="_blank" href="https://en.m.wikipedia.org/wiki/LOLCat_Bible_Translation_Project" rel="nofollow">https://en.m.wikipedia.org/wiki/LOLCa...</a>",
+        "excerpt": "Emoji Bible > LolCats Bible <a target=\"_blank\" href=\"https://en.m.wikipedia.org/wiki/LOLCat_Bible_Translation_Project\" rel=\"nofollow\">https://en.m.wikipedia.org/wiki/LOLCa...</a>",
         "location": "Melissa's review",
         "timestamp": "2020-07-22T18:13:24-07:00",
-        "type: "comment",
+        "type": "comment",
         "url": "https://www.goodreads.com/review/show/3443441422"
     }, {
         "book": {
@@ -455,15 +512,15 @@ api.getUser(options).then(user => {});
                      "small": "https://s.gr-assets.com/assets/nophoto/user/f_50x66-6a03a5c12233c941481992b82eea8d23.png"
                 },
                 "url": "https://www.goodreads.com/author/show/4788285.Tara_Gilesbie"
-            ]],
+            }],
             "id": "11099295",
             "title": "My Immortal",
             "url": "https://www.goodreads.com/book/show/11099295-my-immortal"
         },
-        "excerpt": "The newest "worst thing I've ever read". I mostly enjoyed reading it for the podcast, but eventually it got tiresome.<br/><br/>Some of the mistakes seem too good for it not to be a hoax:<br/><br/>- Tom Bombodil<br/>- We hugged each udder happily.<br/>- “Yah, siriusly [...]” Serious said deviantly.<br/><br/>If it's not a hoax, I guess some<a href="https://www.goodreads.com/review/show/3411248043">more...</a>",
+        "excerpt": "The newest "worst thing I've ever read". I mostly enjoyed reading it for the podcast, but eventually it got tiresome.<br/><br/>Some of the mistakes seem too good for it not to be a hoax:<br/><br/>- Tom Bombodil<br/>- We hugged each udder happily.<br/>- “Yah, siriusly [...]” Serious said deviantly.<br/><br/>If it's not a hoax, I guess some<a href=\"https://www.goodreads.com/review/show/3411248043\">more...</a>",
         "rating": 1,
         "timestamp": "2020-07-19T20:51:24-07:00",
-        "type: "review",
+        "type": "review",
         "url": "https://www.goodreads.com/review/show/3411248043"
     }],
     "rss": {
@@ -513,21 +570,53 @@ api.getUser(options).then(user => {});
 
 
 ### UserBook
-Goodreads API endpoints: 
+#### Example Requests
+
+#### Example Response
+
+#### Comments
+
+#### Goodreads API endpoints
 - owned_books
 - review
 
 
 
+### UserNotifications
+#### Example Requests
+
+#### Example Response
+
+#### Comments
+
+#### Goodreads API endpoints
+- notifications
+
+
+
 ### UserShelves
-Goodreads API endpoints: 
+#### Example Requests
+
+#### Example Response
+
+#### Comments
+
+#### Goodreads API endpoints
 - shelves
+- user_shelves
 
 
 
 ### UserUpdates
-Goodreads API endpoints: 
-- user.show
+#### Example Requests
+
+#### Example Response
+
+#### Comments
+
+#### Goodreads API endpoints
+- read_statuses (single)
+- user.show (multiple)
 
 
 
@@ -538,7 +627,6 @@ Goodreads API endpoints:
 ## Not planning to implement
 - auth
 - author_following
-- comment
 - events
 - fanship
 - followers
@@ -546,10 +634,7 @@ Goodreads API endpoints:
 - friends
 - group
 - list (not sure what Listopia is, and this resource requires "extra permission" to use)
-- notifications
 - quotes (only functionality is creating quotes)
 - recommendations (user-to-user recommendations, only functionality is retrieving individual recommendation)
-- series (included in Book and Books; no interesting information that isn't there)
 - topic
-- updates
 - work
