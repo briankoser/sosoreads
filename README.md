@@ -423,9 +423,9 @@ api.getSeries(options).then(series => {});
         "bestBook": {
             "id": "1094403",
             "title": "The Man With Two Left Feet and Other Stories",
-            "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348936569l/1094403._SX98_.jpg"
+            "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348936569l/1094403._SX98_.jpg",
             "published": "1917"
-        }
+        },
         "bookCount": "16",
         "description": "P.G. Wodehouse's series of comic novels featuring young British dilettante Bertram \"Bertie\" Wooster, and his wry valet Jeeves, who is often the cause of his salvation from increasingly entangled social situations.",
         "id": "52643",
@@ -434,9 +434,9 @@ api.getSeries(options).then(series => {});
         "bestBook": {
             "id": "13707720",
             "title": "Leave it to Psmith",
-            "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1342025763l/13707720._SX98_.jpg"
+            "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1342025763l/13707720._SX98_.jpg",
             "published": "1923"
-        }
+        },
         "bookCount": "12",
         "description": "P.G. Wodehouse's stories set at Blandings Castle.",
         "id": "60684",
@@ -489,7 +489,7 @@ api.getUser(options).then(user => {});
         "action": "wants to read",
         "bookId": "200138",
         "timestamp": "2020-07-22T18:13:24-07:00",
-        "type: "readstatus",
+        "type": "readstatus",
         "url": "https://www.goodreads.com/read_statuses/3763771994"
     }, {
         "excerpt": "Emoji Bible > LolCats Bible <a target=\"_blank\" href=\"https://en.m.wikipedia.org/wiki/LOLCat_Bible_Translation_Project\" rel=\"nofollow\">https://en.m.wikipedia.org/wiki/LOLCa...</a>",
@@ -517,7 +517,7 @@ api.getUser(options).then(user => {});
             "title": "My Immortal",
             "url": "https://www.goodreads.com/book/show/11099295-my-immortal"
         },
-        "excerpt": "The newest "worst thing I've ever read". I mostly enjoyed reading it for the podcast, but eventually it got tiresome.<br/><br/>Some of the mistakes seem too good for it not to be a hoax:<br/><br/>- Tom Bombodil<br/>- We hugged each udder happily.<br/>- “Yah, siriusly [...]” Serious said deviantly.<br/><br/>If it's not a hoax, I guess some<a href=\"https://www.goodreads.com/review/show/3411248043\">more...</a>",
+        "excerpt": "The newest \"worst thing I've ever read\". I mostly enjoyed reading it for the podcast, but eventually it got tiresome.<br/><br/>Some of the mistakes seem too good for it not to be a hoax:<br/><br/>- Tom Bombodil<br/>- We hugged each udder happily.<br/>- “Yah, siriusly [...]” Serious said deviantly.<br/><br/>If it's not a hoax, I guess some<a href=\"https://www.goodreads.com/review/show/3411248043\">more...</a>",
         "rating": 1,
         "timestamp": "2020-07-19T20:51:24-07:00",
         "type": "review",
