@@ -20,13 +20,19 @@ I will not implement the social resources (friends, notifications, etc.).
 Null or empty fields will not be returned.
 
 
+
+## Done
+
+
+
 ## To Do
 - [ ] Request/response contracts
 - [ ] Basic structure
+- [ ] Unit tests
 - [ ] Author
 - [ ] Book, Books
+- [ ] Series
 - [ ] User
-- [ ] Tests
 - [ ] Add to npm
 - [ ] v2 write resources (comment)
 - [ ] v3 resources requiring OAuth (updates)
@@ -563,10 +569,6 @@ api.getUser(options).then(user => {});
 #### Goodreads API endpoints
 - user.show
 
-- read_statuses
-- user_shelves
-- user_status
-
 
 
 ### UserBook
@@ -620,10 +622,6 @@ api.getUser(options).then(user => {});
 
 
 
-## Done
-
-
-
 ## Not planning to implement
 - auth
 - author_following
@@ -637,4 +635,7 @@ api.getUser(options).then(user => {});
 - quotes (only functionality is creating quotes)
 - recommendations (user-to-user recommendations, only functionality is retrieving individual recommendation)
 - topic
+- user_status
+    - user_status.show takes a user_status ID that I can't find in any other resource
+    - user_status.index is a stream of all updates of every site user
 - work
