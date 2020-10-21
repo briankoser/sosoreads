@@ -14,12 +14,14 @@ My goal with Sosoreads is to provide a clean interface to the book-related resou
 I will not implement the social resources (friends, notifications, etc.). 
 
 - v1 - read-only resources
-- v2 - write resources (Comments, UserBook (reviews, owned_books))
-- v3 - resources requiring OAuth (Notifications, UserBook (owned_books), UserUpdates)
+- v2 - write resources (Comments, Reviews (reviews, owned_books), Shelves)
+- v3 - resources requiring OAuth (Notifications, Reviews (owned_books), UserUpdates)
 
 Null or empty fields will not be returned.
 
 All dates follow the [ISO_8601](https://en.m.wikipedia.org/wiki/ISO_8601) standard.
+
+The Goodreads API's default page size for paged collections is 30 (the exception is shelves are paged by 100). This page size is not configurable in the Goodreads API (the exception is when searching Books by UserId). However, for simplicity, sosoreads allows a custom page size for all paged collections. Be aware that custom page sizes that overlap the Goodreads page size may require multiple Goodreads API calls behind the scenes, affecting performance.
 
 
 
@@ -34,11 +36,12 @@ All dates follow the [ISO_8601](https://en.m.wikipedia.org/wiki/ISO_8601) standa
 - [ ] Author
 - [ ] Book
 - [ ] Books
+- [ ] Review
 - [ ] Series
+- [ ] Shelves
 - [ ] User
-- [ ] UserShelves
 - [ ] Add to npm
-- [ ] v2 write resources (Comments, UserBook)
+- [ ] v2 write resources (Comments, Shelves, UserBook)
 - [ ] v3 resources requiring OAuth (Notifications, UserBook, UserUpdates)
 
 ### Installation
@@ -255,8 +258,10 @@ api.getBook(options).then(book => {});
 
 #### Comments
 - For requests, if `bookId` is provided, `isbn` is ignored.
-- The possible values for `authors.role` are "author" and "translator".
-- `description.long` is provided by Goodreads. `description.short` will be the first sentence on the long description.
+- The possible values for `authors.role`:
+  - "author"
+  - "translator"
+- `description.long` is provided by Goodreads. `description.short` will be the first sentence from the long description.
 - `pageCount` and `publisher` are obviously dependent on edition; I don't know how Goodreads determines which edition to provide.
 - `popularShelves` will return at most 100 shelves.
 - `publicationYear` will be a negative number for books published BC.
@@ -273,7 +278,10 @@ api.getBook(options).then(book => {});
 ```js
 const options = {
     "authorId": "903",
-    "retrieveAll": false
+    "paging": { // optional
+        "count": 30,
+        "number": 1
+    }
 }
 
 api.getBooks(options).then(books => {});
@@ -282,11 +290,34 @@ api.getBooks(options).then(books => {});
 ```js
 const options = {
     "searchQuery": "iliad",
-    "retrieveAll": false
+    "paging": { // optional
+        "count": 30,
+        "number": 1
+    }
 }
 
 api.getBooks(options).then(books => {});
 ```
+
+```js
+const options = {
+    "userId": "4812558",
+    "paging": {
+        "count": 30,
+        "number": 1
+    },
+    "searchQuery": "iliad", // optional
+    "shelf": "to-read", // optional
+    "sort": { // optional
+        "field": "title",
+        "order": "desc"
+    }
+}
+
+api.getBooks(options).then(books => {});
+```
+
+
 
 #### Example Response
 ```json
@@ -400,18 +431,24 @@ api.getBooks(options).then(books => {});
 ```
 
 #### Comments
-- For requests, if `authorId` is provided, `searchQuery` is ignored.
-- Goodreads only returns 30 books at a time when retrieving by author. To return all books, set `retrieveAll` to `true` and sosoreads will make multiple Goodreads API calls. Default is false.
-- `searchQuery` search matches against title and author fields
-- The possible values for `authors.role` are "author" and "translator".
+- For requests, if `authorId` is provided, `searchQuery` and `userId` are ignored.
+- When searching by `userId`, you can specify a page size of up to 200 without requiring multiple Goodreads API calls behind the scenes.
+- `searchQuery` search matches against title and author fields.
+- The possible values for `authors.role` are 
+  - "author"
+  - "translator"
 - `description.long` is provided by Goodreads. `description.short` will be the first sentence on the long description.
 - `pageCount` and `publisher` are obviously dependent on edition; I don't know how Goodreads determines which edition to provide.
 - `popularShelves` will return at most 100 shelves.
 - `publicationYear` will be a negative number for books published BC.
+- Adding books to shelves will be part of v2.
 
 #### Goodreads API endpoints
 - author.books
 - search.books
+- reviews.list
+- shelves.add_to_shelf
+- shelves.add_books_to_shelves
 
 
 
@@ -419,10 +456,13 @@ api.getBooks(options).then(books => {});
 #### Example Requests
 ```js
 const options = {
-    "count": 30
+    "paging": {
+        "count": 30,
+        "number": 1
+    }
 }
 
-api.getNotifications(options).then(user => {});
+api.getNotifications(options).then(notifications => {});
 ```
 
 #### Example Response
@@ -464,9 +504,16 @@ api.getNotifications(options).then(user => {});
 #### Comments
 - Requires OAuth
 - Viewing notifications marks them as "viewed".
-- Goodreads divides notifications into pages of 30, so sosoreads will retrieve notifications in multiples of 30 and return the requested `count`.
-- `type` is the type of action the actor(s) made. The known values are: Comment, Rating, ReadingNotesCollectionData, UserFollowing
-- `resource.type` is the type of action the original user made. The known values are: ReadingNotesCollectionData, ReadStatus, Review, UserFollowing
+- `type` is the type of action the actor(s) made. Known values: 
+    - Comment
+    - Rating
+    - ReadingNotesCollectionData
+    - UserFollowing
+- `resource.type` is the type of action the original user made. Known values: 
+    - ReadingNotesCollectionData
+    - ReadStatus
+    - Review
+    - UserFollowing
 
 #### Goodreads API endpoints
 - notifications
@@ -522,6 +569,53 @@ api.getSeries(options).then(series => {});
 
 #### Goodreads API endpoints
 - series.list
+
+
+
+### Shelves
+#### Example Requests
+```js
+const options = {
+    "userId": "4812558",
+    "paging": { // optional
+        "count": 100,
+        "number": 1
+    }
+}
+
+api.getShelves(options).then(shelves => {});
+```
+
+#### Example Response
+```json
+{
+    "start": 1,
+    "end": 100,
+    "total": 183,
+    "shelves": [
+        {
+            "count": 1220,
+            "featured": true,
+            "exclusive": true,
+            "id": "15377251",
+            "name": "read"
+        }, {
+            "count": 93,
+            "featured": false,
+            "exclusive": false,
+            "id": "350589097",
+            "name": "100-books-2020"
+        }
+    ]
+}
+```
+
+#### Comments
+- Creating and editing shelves will be added in v2
+
+#### Goodreads API endpoints
+- shelves.list
+- user_shelves
 
 
 
@@ -637,23 +731,23 @@ api.getUser(options).then(user => {});
 
 
 
-### UserBooks
+### Reviews
 #### Example Requests
 ```js
 const options = {
-    "userBookId": "2kYIBVxcqaN4mdfclzwVQ"
+    "reviewId": "2kYIBVxcqaN4mdfclzwVQ"
 }
 
-api.getUserBooks(options).then(user => {});
+api.getReviews(options).then(review => {});
 ```
 
 ```js
 const options = {
-    "userId": "1",
+    "userId": "4812558",
     "bookId": "50"
 }
 
-api.getUserBooks(options).then(user => {});
+api.getReviews(options).then(review => {});
 ```
 
 #### Example Response
@@ -694,6 +788,7 @@ api.getUserBooks(options).then(user => {});
         "title": "Moon People",
         "url": "https://www.goodreads.com/book/show/6584471-moon-people"
     },
+    "owned": false,
     "review": {
         "body": "I'm a fan of the bad book club podcast 372 Pages We'll Never Get Back, and a fan of many of the books they've covered. I built a fan-fiction Choose Your Own Adventure game (372adventure.com). I wrote a 3,212 word review of Trucking through Time, the highest-rated review of Trucking through Time on Goodreads. We've invited friends over for an Eye of Argon reading party.<br /><br />I don't say any of this to brag. I say it so that you can fully understand the following statement: Moon People is the greatest of them all. I didn't think I could love a 1-star book more than Trucking through Time, but I was wrong. So very wrong.<br /><br />It's like Dale M. Courtney studied me secretly for years, learning all about me, and then wrote Moon People solely to make me happy.<br /><br />The main quirk is that DMC must have written the book with text to speech software. That's the only explanation for the lack of commas and quotation marks, and all the homophones. But it would take me far more than 80 pages to catalog everything I like about Moon People, because every sentence is bad in an amazing new way. You really have to read it yourself. Here's just a taste:<br /><br />The main character David talking to the spaceship admiral: <br /><br /> By the way did you realize that Monday was Halloween. Yes sir, I know, it does bother me a little bit. You have until then to change your mind. You are going to have to be here a good 24 hours earlier for launch preparations and a quick health check up. Then after that the only thing you are going to see is the stars. Don't worry I'll be there right along side of you? That's my flight too. Great. The truth about it is I am a little scared of that shuttle launch to the base station especially on Halloween. But I think I will be all right after that. Good Captain Braymer because you and I are going on one hell of a ride Monday morning, trick or treat. I will show you wonders you always dreamed about. That's pretty cool sir. I can't wait.<br /><br />Romance:<br /><br /> She leaned in toward David and they kissed passionately for about a minute and then stopped.<br /><br />First contact with alien life:<br /><br /> If you like asparagus then I bet you'll like to try some of these. We call this a baked potato. We stir it up into a soft pudding and then we add butter and salt. Potatoes also grow well in space. I hope you will like it. Captain Tudmoke replied, I believe I will try it. MMM that's good. We have something like this on our planet its called stemage.<br /><br />The Burj Khalifa, the Mona Lisa, the crack cocaine of bad books.",
         "commentsCount": 0,
@@ -705,12 +800,15 @@ api.getUserBooks(options).then(user => {});
         },
         "id": "3193280293",
         "isSpoiler": false,
-        "owned": false,
         "rating": 1,
         "readCount": 1,
         "recommendedBy": "372 Pages We'll Never Get Back Podcast",
         "recommendedFor": "Fans of bad books",
-        "shelves": [{
+        "url": "https://www.goodreads.com/review/show/3193280293",
+        "votes": "0"
+    },
+    "shelves": [
+        {
             "exclusive": true,
             "id": "15377251",
             "name": "read"
@@ -718,10 +816,8 @@ api.getUserBooks(options).then(user => {});
             "exclusive": false,
             "id": "302308344",
             "name": "372-pages"
-        }],
-        "url": "https://www.goodreads.com/review/show/3193280293",
-        "votes": "0"
-    },
+        }
+    ],
     "statuses": [
         {
             "commentsCount": 0,
@@ -760,27 +856,14 @@ api.getUserBooks(options).then(user => {});
 ```
 
 #### Comments
-- For requests, if `userBookId` is provided, `userId` and `bookId` are ignored.
+- Reviews is a many-to-many link between users and books. The entity contains reviews, ratings, shelves, and book and user data.
+- For requests, if `reviewId` is provided, `userId` and `bookId` are ignored.
 - Will require registered app and OAuth after adding `owned_books` data.
 
 #### Goodreads API endpoints
 - owned_books - will add in v3
 - review.show
 - review.show_by_user_and_book
-
-
-
-### UserShelves
-#### Example Requests
-
-#### Example Response
-
-#### Comments
-
-#### Goodreads API endpoints
-- reviews.list?
-- shelves
-- user_shelves
 
 
 
