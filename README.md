@@ -14,8 +14,8 @@ My goal with Sosoreads is to provide a clean interface to the book-related resou
 I will not implement the social resources (friends, notifications, etc.). 
 
 - v1 - read-only resources
-- v2 - write resources (comment)
-- v3 - resources requiring OAuth (updates, userBook)
+- v2 - write resources (Comments, UserBook (reviews, owned_books))
+- v3 - resources requiring OAuth (Notifications, UserBook (owned_books), UserUpdates)
 
 Null or empty fields will not be returned.
 
@@ -32,12 +32,14 @@ All dates follow the [ISO_8601](https://en.m.wikipedia.org/wiki/ISO_8601) standa
 - [ ] Basic structure
 - [ ] Unit tests
 - [ ] Author
-- [ ] Book, Books
+- [ ] Book
+- [ ] Books
 - [ ] Series
 - [ ] User
+- [ ] UserShelves
 - [ ] Add to npm
-- [ ] v2 write resources (comment)
-- [ ] v3 resources requiring OAuth (updates, userBook)
+- [ ] v2 write resources (Comments, UserBook)
+- [ ] v3 resources requiring OAuth (Notifications, UserBook, UserUpdates)
 
 ### Installation
 ```
@@ -271,7 +273,7 @@ api.getBook(options).then(book => {});
 ```js
 const options = {
     "authorId": "903",
-    "retrieveAllBooks": false
+    "retrieveAll": false
 }
 
 api.getBooks(options).then(books => {});
@@ -280,7 +282,7 @@ api.getBooks(options).then(books => {});
 ```js
 const options = {
     "searchQuery": "iliad",
-    "retrieveAllBooks": false
+    "retrieveAll": false
 }
 
 api.getBooks(options).then(books => {});
@@ -399,7 +401,7 @@ api.getBooks(options).then(books => {});
 
 #### Comments
 - For requests, if `authorId` is provided, `searchQuery` is ignored.
-- Goodreads only returns 30 books at a time when retrieving by author. To return all books, set `retrieveAllBooks` to `true` and sosoreads will make multiple Goodreads API calls. Default is false.
+- Goodreads only returns 30 books at a time when retrieving by author. To return all books, set `retrieveAll` to `true` and sosoreads will make multiple Goodreads API calls. Default is false.
 - `searchQuery` search matches against title and author fields
 - The possible values for `authors.role` are "author" and "translator".
 - `description.long` is provided by Goodreads. `description.short` will be the first sentence on the long description.
@@ -410,6 +412,64 @@ api.getBooks(options).then(books => {});
 #### Goodreads API endpoints
 - author.books
 - search.books
+
+
+
+### Notifications
+#### Example Requests
+```js
+const options = {
+    "count": 30
+}
+
+api.getNotifications(options).then(user => {});
+```
+
+#### Example Response
+```json
+{
+    "notifications": [
+        {
+            "actors": [
+                {
+                    "id": "119659909",
+                    "images": {
+                        "large": "https://s.gr-assets.com/assets/nophoto/user/u_111x148-9394ebedbb3c6c218f64be9549657029.png",
+                        "small": "https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png"
+                    },
+                    "location": "Hoboken, NJ",
+                    "names": {
+                        "display": "Castlearrgh",
+                        "full": "Castlearrgh"
+                    },
+                    "url": "https://www.goodreads.com/user/show/119659909-castlearrgh"
+                }
+            ],
+            "body": {
+               "html": "<a href=\"/user/show/119659909-castlearrgh\">Castlearrgh<\/a> liked <a href=\"https://www.goodreads.com/review/show/3193280293?type=review#rating_316913376\">your review of Moon People<\/a>",
+               "text": "Castlearrgh liked your review of Moon People"
+            },
+            "resource": {
+                "id": "3193280293",
+                "type": "Review"
+            },
+            "timestamp": "2020-10-15T21:38:47-07:00",
+            "type": "Rating",
+            "url": "https://www.goodreads.com/review/show/3193280293?type=review#rating_316913376"
+        }
+    ]
+}
+```
+
+#### Comments
+- Requires OAuth
+- Viewing notifications marks them as "viewed".
+- Goodreads divides notifications into pages of 30, so sosoreads will retrieve notifications in multiples of 30 and return the requested `count`.
+- `type` is the type of action the actor(s) made. The known values are: Comment, Rating, ReadingNotesCollectionData, UserFollowing
+- `resource.type` is the type of action the original user made. The known values are: ReadingNotesCollectionData, ReadStatus, Review, UserFollowing
+
+#### Goodreads API endpoints
+- notifications
 
 
 
@@ -470,7 +530,7 @@ api.getSeries(options).then(series => {});
 #### Example Requests
 ```js
 const options = {
-    userId: "4812558"
+    "userId": "4812558"
 }
 
 api.getUser(options).then(user => {});
@@ -577,23 +637,23 @@ api.getUser(options).then(user => {});
 
 
 
-### UserBook
+### UserBooks
 #### Example Requests
 ```js
 const options = {
-    userBookId: "2kYIBVxcqaN4mdfclzwVQ"
+    "userBookId": "2kYIBVxcqaN4mdfclzwVQ"
 }
 
-api.getUserBook(options).then(user => {});
+api.getUserBooks(options).then(user => {});
 ```
 
 ```js
 const options = {
-    userId: "1",
-    bookId: "50"
+    "userId": "1",
+    "bookId": "50"
 }
 
-api.getUserBook(options).then(user => {});
+api.getUserBooks(options).then(user => {});
 ```
 
 #### Example Response
@@ -700,25 +760,13 @@ api.getUserBook(options).then(user => {});
 ```
 
 #### Comments
-- Requires registered app and OAuth (owned_books)
 - For requests, if `userBookId` is provided, `userId` and `bookId` are ignored.
+- Will require registered app and OAuth after adding `owned_books` data.
 
 #### Goodreads API endpoints
-- owned_books - already have owned flag; move this to ownedBooks endpoint?
+- owned_books - will add in v3
 - review.show
 - review.show_by_user_and_book
-
-
-
-### UserNotifications
-#### Example Requests
-
-#### Example Response
-
-#### Comments
-
-#### Goodreads API endpoints
-- notifications
 
 
 
