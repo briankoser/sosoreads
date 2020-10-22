@@ -15,7 +15,7 @@ I will not implement the social resources (friends, notifications, etc.).
 
 - v1 - read-only resources
 - v2 - write resources (Comments, Reviews (reviews, owned_books), Shelves)
-- v3 - resources requiring OAuth (Notifications, Reviews (owned_books), UserUpdates)
+- v3 - resources requiring OAuth (Notifications, Reviews (owned_books))
 
 Null or empty fields will not be returned.
 
@@ -30,7 +30,7 @@ The Goodreads API's default page size for paged collections is 30 (the exception
 
 
 ## To Do
-- [ ] Request/response contracts
+- [x] Request/response contracts
 - [ ] Basic structure
 - [ ] Unit tests
 - [ ] Author
@@ -42,7 +42,7 @@ The Goodreads API's default page size for paged collections is 30 (the exception
 - [ ] User
 - [ ] Add to npm
 - [ ] v2 write resources (Comments, Shelves, UserBook)
-- [ ] v3 resources requiring OAuth (Notifications, UserBook, UserUpdates)
+- [ ] v3 resources requiring OAuth (Notifications, UserBook)
 
 ### Installation
 ```
@@ -864,20 +864,7 @@ api.getReviews(options).then(review => {});
 - owned_books - will add in v3
 - review.show
 - review.show_by_user_and_book
-
-
-
-### UserUpdates
-#### Example Requests
-
-#### Example Response
-
-#### Comments
-
-#### Goodreads API endpoints
-- read_statuses (single)
-- user.show (multiple)
-
+- 
 
 
 ## Not planning to implement
@@ -891,6 +878,8 @@ api.getReviews(options).then(review => {});
 - group
 - list (not sure what Listopia is, and this resource requires "extra permission" to use)
 - quotes (only functionality is creating quotes)
+- read_statuses
+    - Not currently useful, because the only way to get a Read Status ID is from User, which also returns all the Read Status data.
 - recommendations (user-to-user recommendations, only functionality is retrieving individual recommendation)
 - review.recent_reviews  (reviews from all users)
 - topic
