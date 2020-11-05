@@ -36,7 +36,7 @@ The Goodreads API's default page size for paged collections is 30 (the exception
 - [ ] Author
 - [ ] Book
 - [ ] Books
-- [ ] Review
+- [ ] Reviews
 - [ ] Series
 - [ ] Shelves
 - [ ] User
@@ -55,7 +55,7 @@ const sosoreads = require('sosoreads');
 ### Initialization
 ```js
 const options = {
-    "developer_key": 'YOUR_GOODREADS_DEVELOPER_KEY',
+    "goodreads_developer_key": 'YOUR_GOODREADS_DEVELOPER_KEY',
     "oauth_token": "YOUR_OAUTH_TOKEN"
 };
 
@@ -520,6 +520,142 @@ api.getNotifications(options).then(notifications => {});
 
 
 
+### Reviews
+#### Example Requests
+```js
+const options = {
+    "reviewId": "2kYIBVxcqaN4mdfclzwVQ"
+}
+
+api.getReviews(options).then(review => {});
+```
+
+```js
+const options = {
+    "userId": "4812558",
+    "bookId": "50"
+}
+
+api.getReviews(options).then(review => {});
+```
+
+#### Example Response
+```json
+{
+    "book": {
+        "authors": [{
+            "averageRating": "2.77",
+            "id": "2975072",
+            "images": {
+                "large": "https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png",
+                "small": "https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png"
+            },
+            "name": "Dale M. Courtney",
+            "ratingsCount": 135,
+            "role": "author",
+            "url": "https://www.goodreads.com/author/show/2975072.Dale_M_Courtney"
+        }],
+        "descriptions": {
+            "short": "This Book is based on the turning point for Earth into a new era of space travel and the beginning of the Age of Aquarius.",
+            "full": "This Book is based on the turning point for Earth into a new era of space travel and the beginning of the Age of Aquarius. The story focuses on one Man by the Name of David Braymer and his adventures from High school teacher to 1st Science Officer on board the Lunar Base 1 Mobile Base Station and his encounters with Alien Life forms through out our universe and the space Battle of all battles David experiences. I hope you enjoy the many adventures of David Braymer and his conquest in space and our journey into the Age of Aquarius"
+        },
+        "id": "6584471",
+        "images": {
+            "large": "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+            "small": "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png"
+        },
+        "isbn": "1436372135",
+        "isbn13": "9781436372138",
+        "originalPublicationYear": "2008",
+        "pageCount": 123,
+        "publisher": "Penguin Classics",
+        "ratings": {
+            "average": "2.63",
+            "count": 120
+        },
+        "reviewCount": 49,
+        "title": "Moon People",
+        "url": "https://www.goodreads.com/book/show/6584471-moon-people"
+    },
+    "owned": false,
+    "review": {
+        "body": "I'm a fan of the bad book club podcast 372 Pages We'll Never Get Back, and a fan of many of the books they've covered. I built a fan-fiction Choose Your Own Adventure game (372adventure.com). I wrote a 3,212 word review of Trucking through Time, the highest-rated review of Trucking through Time on Goodreads. We've invited friends over for an Eye of Argon reading party.<br /><br />I don't say any of this to brag. I say it so that you can fully understand the following statement: Moon People is the greatest of them all. I didn't think I could love a 1-star book more than Trucking through Time, but I was wrong. So very wrong.<br /><br />It's like Dale M. Courtney studied me secretly for years, learning all about me, and then wrote Moon People solely to make me happy.<br /><br />The main quirk is that DMC must have written the book with text to speech software. That's the only explanation for the lack of commas and quotation marks, and all the homophones. But it would take me far more than 80 pages to catalog everything I like about Moon People, because every sentence is bad in an amazing new way. You really have to read it yourself. Here's just a taste:<br /><br />The main character David talking to the spaceship admiral: <br /><br /> By the way did you realize that Monday was Halloween. Yes sir, I know, it does bother me a little bit. You have until then to change your mind. You are going to have to be here a good 24 hours earlier for launch preparations and a quick health check up. Then after that the only thing you are going to see is the stars. Don't worry I'll be there right along side of you? That's my flight too. Great. The truth about it is I am a little scared of that shuttle launch to the base station especially on Halloween. But I think I will be all right after that. Good Captain Braymer because you and I are going on one hell of a ride Monday morning, trick or treat. I will show you wonders you always dreamed about. That's pretty cool sir. I can't wait.<br /><br />Romance:<br /><br /> She leaned in toward David and they kissed passionately for about a minute and then stopped.<br /><br />First contact with alien life:<br /><br /> If you like asparagus then I bet you'll like to try some of these. We call this a baked potato. We stir it up into a soft pudding and then we add butter and salt. Potatoes also grow well in space. I hope you will like it. Captain Tudmoke replied, I believe I will try it. MMM that's good. We have something like this on our planet its called stemage.<br /><br />The Burj Khalifa, the Mona Lisa, the crack cocaine of bad books.",
+        "commentsCount": 0,
+        "dates": {
+            "add": "2020-02-16T11:33:07-08:00",
+            "end": "2020-03-04",
+            "start": "2020-02-16",
+            "update": "2020-03-04T19:54:53-08:00"
+        },
+        "id": "3193280293",
+        "isSpoiler": false,
+        "rating": 1,
+        "readCount": 1,
+        "recommendedBy": "372 Pages We'll Never Get Back Podcast",
+        "recommendedFor": "Fans of bad books",
+        "url": "https://www.goodreads.com/review/show/3193280293",
+        "votes": "0"
+    },
+    "shelves": [
+        {
+            "exclusive": true,
+            "id": "15377251",
+            "name": "read"
+        }, {
+            "exclusive": false,
+            "id": "302308344",
+            "name": "372-pages"
+        }
+    ],
+    "statuses": [
+        {
+            "commentsCount": 0,
+            "id": "3444255000",
+            "statuses": {
+                "current": "read",
+                "previous": "currently-reading"
+            },
+            "ratingsCount": 0,
+            "timestamp": "2020-03-04T19:26:52-08:00"
+        },
+        {
+            "commentsCount": 0,
+            "id": "3410671962",
+            "statuses": {
+                "current": "currently-reading"
+            },
+            "ratingsCount": 0,
+            "timestamp": "2020-02-16T11:33:08-08:00"
+        }
+    ],
+    "user": {
+        "id": "4812558",
+        "images": {
+            "large": "https://images.gr-assets.com/users/1529893704p3/4812558.jpg",
+            "small": "https://images.gr-assets.com/users/1529893704p2/4812558.jpg"
+        },
+        "location": "Mobile, AL",
+        "names": {
+            "display": "Brian",
+            "full": "Brian Koser"
+        },
+        "url": "https://www.goodreads.com/user/show/4812558-brian-koser"
+    }
+}
+```
+
+#### Comments
+- Reviews is a many-to-many link between users and books. The entity contains reviews, ratings, shelves, and book and user data.
+- For requests, if `reviewId` is provided, `userId` and `bookId` are ignored.
+- Will require registered app and OAuth after adding `owned_books` data.
+
+#### Goodreads API endpoints
+- owned_books - will add in v3
+- review.show
+- review.show_by_user_and_book
+
+
+
 ### Series
 #### Example Requests
 ```js
@@ -729,142 +865,6 @@ api.getUser(options).then(user => {});
 #### Goodreads API endpoints
 - user.show
 
-
-
-### Reviews
-#### Example Requests
-```js
-const options = {
-    "reviewId": "2kYIBVxcqaN4mdfclzwVQ"
-}
-
-api.getReviews(options).then(review => {});
-```
-
-```js
-const options = {
-    "userId": "4812558",
-    "bookId": "50"
-}
-
-api.getReviews(options).then(review => {});
-```
-
-#### Example Response
-```json
-{
-    "book": {
-        "authors": [{
-            "averageRating": "2.77",
-            "id": "2975072",
-            "images": {
-                "large": "https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png",
-                "small": "https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png"
-            },
-            "name": "Dale M. Courtney",
-            "ratingsCount": 135,
-            "role": "author",
-            "url": "https://www.goodreads.com/author/show/2975072.Dale_M_Courtney"
-        }],
-        "descriptions": {
-            "short": "This Book is based on the turning point for Earth into a new era of space travel and the beginning of the Age of Aquarius.",
-            "full": "This Book is based on the turning point for Earth into a new era of space travel and the beginning of the Age of Aquarius. The story focuses on one Man by the Name of David Braymer and his adventures from High school teacher to 1st Science Officer on board the Lunar Base 1 Mobile Base Station and his encounters with Alien Life forms through out our universe and the space Battle of all battles David experiences. I hope you enjoy the many adventures of David Braymer and his conquest in space and our journey into the Age of Aquarius"
-        },
-        "id": "6584471",
-        "images": {
-            "large": "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
-            "small": "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png"
-        },
-        "isbn": "1436372135",
-        "isbn13": "9781436372138",
-        "originalPublicationYear": "2008",
-        "pageCount": 123,
-        "publisher": "Penguin Classics",
-        "ratings": {
-            "average": "2.63",
-            "count": 120
-        },
-        "reviewCount": 49,
-        "title": "Moon People",
-        "url": "https://www.goodreads.com/book/show/6584471-moon-people"
-    },
-    "owned": false,
-    "review": {
-        "body": "I'm a fan of the bad book club podcast 372 Pages We'll Never Get Back, and a fan of many of the books they've covered. I built a fan-fiction Choose Your Own Adventure game (372adventure.com). I wrote a 3,212 word review of Trucking through Time, the highest-rated review of Trucking through Time on Goodreads. We've invited friends over for an Eye of Argon reading party.<br /><br />I don't say any of this to brag. I say it so that you can fully understand the following statement: Moon People is the greatest of them all. I didn't think I could love a 1-star book more than Trucking through Time, but I was wrong. So very wrong.<br /><br />It's like Dale M. Courtney studied me secretly for years, learning all about me, and then wrote Moon People solely to make me happy.<br /><br />The main quirk is that DMC must have written the book with text to speech software. That's the only explanation for the lack of commas and quotation marks, and all the homophones. But it would take me far more than 80 pages to catalog everything I like about Moon People, because every sentence is bad in an amazing new way. You really have to read it yourself. Here's just a taste:<br /><br />The main character David talking to the spaceship admiral: <br /><br /> By the way did you realize that Monday was Halloween. Yes sir, I know, it does bother me a little bit. You have until then to change your mind. You are going to have to be here a good 24 hours earlier for launch preparations and a quick health check up. Then after that the only thing you are going to see is the stars. Don't worry I'll be there right along side of you? That's my flight too. Great. The truth about it is I am a little scared of that shuttle launch to the base station especially on Halloween. But I think I will be all right after that. Good Captain Braymer because you and I are going on one hell of a ride Monday morning, trick or treat. I will show you wonders you always dreamed about. That's pretty cool sir. I can't wait.<br /><br />Romance:<br /><br /> She leaned in toward David and they kissed passionately for about a minute and then stopped.<br /><br />First contact with alien life:<br /><br /> If you like asparagus then I bet you'll like to try some of these. We call this a baked potato. We stir it up into a soft pudding and then we add butter and salt. Potatoes also grow well in space. I hope you will like it. Captain Tudmoke replied, I believe I will try it. MMM that's good. We have something like this on our planet its called stemage.<br /><br />The Burj Khalifa, the Mona Lisa, the crack cocaine of bad books.",
-        "commentsCount": 0,
-        "dates": {
-            "add": "2020-02-16T11:33:07-08:00",
-            "end": "2020-03-04",
-            "start": "2020-02-16",
-            "update": "2020-03-04T19:54:53-08:00"
-        },
-        "id": "3193280293",
-        "isSpoiler": false,
-        "rating": 1,
-        "readCount": 1,
-        "recommendedBy": "372 Pages We'll Never Get Back Podcast",
-        "recommendedFor": "Fans of bad books",
-        "url": "https://www.goodreads.com/review/show/3193280293",
-        "votes": "0"
-    },
-    "shelves": [
-        {
-            "exclusive": true,
-            "id": "15377251",
-            "name": "read"
-        }, {
-            "exclusive": false,
-            "id": "302308344",
-            "name": "372-pages"
-        }
-    ],
-    "statuses": [
-        {
-            "commentsCount": 0,
-            "id": "3444255000",
-            "statuses": {
-                "current": "read",
-                "previous": "currently-reading"
-            },
-            "ratingsCount": 0,
-            "timestamp": "2020-03-04T19:26:52-08:00"
-        },
-        {
-            "commentsCount": 0,
-            "id": "3410671962",
-            "statuses": {
-                "current": "currently-reading"
-            },
-            "ratingsCount": 0,
-            "timestamp": "2020-02-16T11:33:08-08:00"
-        }
-    ],
-    "user": {
-        "id": "4812558",
-        "images": {
-            "large": "https://images.gr-assets.com/users/1529893704p3/4812558.jpg",
-            "small": "https://images.gr-assets.com/users/1529893704p2/4812558.jpg"
-        },
-        "location": "Mobile, AL",
-        "names": {
-            "display": "Brian",
-            "full": "Brian Koser"
-        },
-        "url": "https://www.goodreads.com/user/show/4812558-brian-koser"
-    }
-}
-```
-
-#### Comments
-- Reviews is a many-to-many link between users and books. The entity contains reviews, ratings, shelves, and book and user data.
-- For requests, if `reviewId` is provided, `userId` and `bookId` are ignored.
-- Will require registered app and OAuth after adding `owned_books` data.
-
-#### Goodreads API endpoints
-- owned_books - will add in v3
-- review.show
-- review.show_by_user_and_book
-- 
 
 
 ## Not planning to implement
