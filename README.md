@@ -281,6 +281,10 @@ const options = {
     "paging": { // optional
         "count": 30,
         "number": 1
+    },
+    "sort": { // optional
+        "field": "title",
+        "order": "desc"
     }
 }
 
@@ -293,6 +297,10 @@ const options = {
     "paging": { // optional
         "count": 30,
         "number": 1
+    },
+    "sort": { // optional
+        "field": "title",
+        "order": "desc"
     }
 }
 
