@@ -1,9 +1,9 @@
+const config = require('./config.json');
+// TODO tests
 // TODO jsdoc comments
 // TODO axios for http requests
 // TODO xml2js for xml parsing
 
-// TODO move credentials to file
-// TODO tests
 const Sosoreads = function(options) {
     if (!options || !options.goodreads_developer_key) throw new Error('Goodreads API developer key is required.');
   
