@@ -1,5 +1,4 @@
 const config = require('./config.json');
-// TODO tests
 // TODO jsdoc comments
 // TODO axios for http requests
 // TODO xml2js for xml parsing
@@ -19,7 +18,7 @@ const Sosoreads = function(options) {
 
     let getBooks = function(options) {
         console.log('Not implemented')
-        return Promise.resolve();
+        return Promise.resolve(1);
     }
 
     let getNotifications = function(options) {

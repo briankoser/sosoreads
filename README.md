@@ -32,15 +32,15 @@ The Goodreads API's default page size for paged collections is 30 (the exception
 ## To Do
 - [x] Request/response contracts
 - [x] Basic structure
-- [ ] Unit tests
+- [x] Unit tests
+- [ ] Books
+- [ ] Add to npm
 - [ ] Author
 - [ ] Book
-- [ ] Books
 - [ ] Reviews
 - [ ] Series
 - [ ] Shelves
 - [ ] User
-- [ ] Add to npm
 - [ ] v2 write resources (Comments, Shelves, UserBook)
 - [ ] v3 resources requiring OAuth (Notifications, UserBook)
 
