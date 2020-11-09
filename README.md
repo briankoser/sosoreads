@@ -26,6 +26,153 @@ The Goodreads API's default page size for paged collections is 30 (the exception
 
 
 ## Done
+### Books by User
+
+#### Example Requests
+```js
+const options = {
+    "userId": "4812558",
+    "paging": {
+        "count": 30,
+        "number": 1
+    },
+    "searchQuery": "iliad", // optional
+    "shelf": "to-read", // optional
+    "sort": { // optional
+        "field": "title",
+        "order": "desc"
+    }
+}
+
+api.getBooks(options).then(books => {});
+```
+
+#### Example Response
+```json
+{
+    "books": [{
+        "authors": [{
+            "averageRating": "3.81",
+            "id": "903",
+            "images": {
+                "large": "https://images.gr-assets.com/authors/1390672749p7/903.jpg",
+                "small": "https://images.gr-assets.com/authors/1390672749p2/903.jpg"
+            },
+            "name": "Homer",
+            "ratingsCount": 1282996,
+            "role": "author",
+            "url": "https://www.goodreads.com/author/show/903.Homer"
+        }, {
+            "averageRating": "3.89",
+            "id": "1005",
+            "images": {
+                "large": "https://images.gr-assets.com/authors/1279895687p5/1005.jpg",
+                "small": "https://images.gr-assets.com/authors/1279895687p2/1005.jpg"
+            },
+            "name": "Robert Fagles",
+            "ratingsCount": 407366,
+            "role": "translator",
+            "url": "https://www.goodreads.com/author/show/1005.Robert_Fagles"
+        }],
+        "descriptions": {
+            "short": "This groundbreaking English version by Robert Fagles is the most important recent translation of Homer's great epic poem.",
+            "full": "This groundbreaking English version by Robert Fagles is the most important recent translation of Homer's great epic poem. The verse translation has been hailed by scholars as the new standard, providing an Iliad that delights modern sensibility and aesthetic without sacrificing the grandeur and particular genius of Homer's own style and language. The Iliad is one of the two great epics of Homer, and is typically described as one of the greatest war stories of all time, but to say the Iliad is a war story does not begin to describe the emotional sweep of its action and characters: Achilles, Helen, Hector, and other heroes of Greek myth and history in the tenth and final year of the Greek siege of Troy."
+        },
+        "id": "117929",
+        "images": {
+            "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SX98_.jpg",
+            "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SY75_.jpg"
+        },
+        "isbn": "0140445927",
+        "isbn13": "9780140445923",
+        "originalPublicationYear": "-750",
+        "pageCount": 683,
+        "popularShelves": [{
+            "count": 215075,
+            "name": "to-read"        
+        }, {
+            "count": 15438,
+            "name": "currently-reading"        
+        }],
+        "publisher": "Penguin Classics",
+        "ratings": {
+            "average": "3.87",
+            "count": 346167,
+            "distribution": {
+                "five": 115210,
+                "four": 113155,
+                "three": 83415,
+                "two": 24967,
+                "one": 9420
+            }
+        },
+        "series": [{
+            "count": 8,
+            "name": "Epic Cycle",
+            "positionInSeries": 2
+        }],
+        "similarBooks": [{
+            "author": {
+                "id": "919",
+                "name": "Virgil",
+                "url": "https://www.goodreads.com/author/show/919.Virgil"
+            },
+            "id": "12914",
+            "images": {
+                "large": "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
+                "small": "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png"
+            },
+            "isbn": "0679729526",
+            "isbn13": "9780679729525",
+            "pageCount": 442,
+            "ratings": {
+                "average": "3.87",
+                "count": 346167
+            },
+            "title": "The Aeneid",
+            "url": "https://www.goodreads.com/book/show/117929.The_Iliad"
+        }, {
+            "author": {
+                "id": "4699102",
+                "name": "Unknown",
+                "url": "https://www.goodreads.com/author/show/4699102.Unknown"
+            },
+            "id": "52357",
+            "images": {
+                "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SX98_.jpg",
+                "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SY75_.jpg"
+            },
+            "isbn": "0393320979",
+            "isbn13": "9780393320978",
+            "pageCount": 245,
+            "ratings": {
+                "average": "3.87",
+                "count": 346167
+            },
+            "title": "Beowulf",
+            "url": "https://www.goodreads.com/book/show/52357.Beowulf"
+        }],
+        "title": "The Iliad",
+        "url": "https://www.goodreads.com/book/show/117929.The_Iliad"
+    }]
+}
+```
+
+#### Comments
+- When searching by `userId`, you can specify a page size of up to 200 without requiring multiple Goodreads API calls behind the scenes.
+- `searchQuery` search matches against title and author fields.
+- The possible values for `authors.role` are 
+  - "author"
+  - "translator"
+- `description.long` is provided by Goodreads. `description.short` will be the first sentence from the long description.
+- `pageCount` and `publisher` are obviously dependent on edition; I don't know how Goodreads determines which edition to provide.
+- `popularShelves` will return at most 100 shelves.
+- `publicationYear` will be a negative number for books published BC.
+
+#### Goodreads API endpoints
+- author.books
+- search.books
+- reviews.list
 
 
 
@@ -561,156 +708,6 @@ api.getBooks(options).then(books => {});
 
 #### Goodreads API endpoints
 - author.books
-
-
-
-### Books by User
-
-#### Example Requests
-```js
-const options = {
-    "userId": "4812558",
-    "paging": {
-        "count": 30,
-        "number": 1
-    },
-    "searchQuery": "iliad", // optional
-    "shelf": "to-read", // optional
-    "sort": { // optional
-        "field": "title",
-        "order": "desc"
-    }
-}
-
-api.getBooks(options).then(books => {});
-```
-
-#### Example Response
-```json
-{
-    "books": [{
-        "authors": [{
-            "averageRating": "3.81",
-            "id": "903",
-            "images": {
-                "large": "https://images.gr-assets.com/authors/1390672749p7/903.jpg",
-                "small": "https://images.gr-assets.com/authors/1390672749p2/903.jpg"
-            },
-            "name": "Homer",
-            "ratingsCount": 1282996,
-            "role": "author",
-            "url": "https://www.goodreads.com/author/show/903.Homer"
-        }, {
-            "averageRating": "3.89",
-            "id": "1005",
-            "images": {
-                "large": "https://images.gr-assets.com/authors/1279895687p5/1005.jpg",
-                "small": "https://images.gr-assets.com/authors/1279895687p2/1005.jpg"
-            },
-            "name": "Robert Fagles",
-            "ratingsCount": 407366,
-            "role": "translator",
-            "url": "https://www.goodreads.com/author/show/1005.Robert_Fagles"
-        }],
-        "descriptions": {
-            "short": "This groundbreaking English version by Robert Fagles is the most important recent translation of Homer's great epic poem.",
-            "full": "This groundbreaking English version by Robert Fagles is the most important recent translation of Homer's great epic poem. The verse translation has been hailed by scholars as the new standard, providing an Iliad that delights modern sensibility and aesthetic without sacrificing the grandeur and particular genius of Homer's own style and language. The Iliad is one of the two great epics of Homer, and is typically described as one of the greatest war stories of all time, but to say the Iliad is a war story does not begin to describe the emotional sweep of its action and characters: Achilles, Helen, Hector, and other heroes of Greek myth and history in the tenth and final year of the Greek siege of Troy."
-        },
-        "id": "117929",
-        "images": {
-            "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SX98_.jpg",
-            "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SY75_.jpg"
-        },
-        "isbn": "0140445927",
-        "isbn13": "9780140445923",
-        "originalPublicationYear": "-750",
-        "pageCount": 683,
-        "popularShelves": [{
-            "count": 215075,
-            "name": "to-read"        
-        }, {
-            "count": 15438,
-            "name": "currently-reading"        
-        }],
-        "publisher": "Penguin Classics",
-        "ratings": {
-            "average": "3.87",
-            "count": 346167,
-            "distribution": {
-                "five": 115210,
-                "four": 113155,
-                "three": 83415,
-                "two": 24967,
-                "one": 9420
-            }
-        },
-        "series": [{
-            "count": 8,
-            "name": "Epic Cycle",
-            "positionInSeries": 2
-        }],
-        "similarBooks": [{
-            "author": {
-                "id": "919",
-                "name": "Virgil",
-                "url": "https://www.goodreads.com/author/show/919.Virgil"
-            },
-            "id": "12914",
-            "images": {
-                "large": "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
-                "small": "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png"
-            },
-            "isbn": "0679729526",
-            "isbn13": "9780679729525",
-            "pageCount": 442,
-            "ratings": {
-                "average": "3.87",
-                "count": 346167
-            },
-            "title": "The Aeneid",
-            "url": "https://www.goodreads.com/book/show/117929.The_Iliad"
-        }, {
-            "author": {
-                "id": "4699102",
-                "name": "Unknown",
-                "url": "https://www.goodreads.com/author/show/4699102.Unknown"
-            },
-            "id": "52357",
-            "images": {
-                "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SX98_.jpg",
-                "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SY75_.jpg"
-            },
-            "isbn": "0393320979",
-            "isbn13": "9780393320978",
-            "pageCount": 245,
-            "ratings": {
-                "average": "3.87",
-                "count": 346167
-            },
-            "title": "Beowulf",
-            "url": "https://www.goodreads.com/book/show/52357.Beowulf"
-        }],
-        "title": "The Iliad",
-        "url": "https://www.goodreads.com/book/show/117929.The_Iliad"
-    }]
-}
-```
-
-#### Comments
-- When searching by `userId`, you can specify a page size of up to 200 without requiring multiple Goodreads API calls behind the scenes.
-- `searchQuery` search matches against title and author fields.
-- The possible values for `authors.role` are 
-  - "author"
-  - "translator"
-- `description.long` is provided by Goodreads. `description.short` will be the first sentence from the long description.
-- `pageCount` and `publisher` are obviously dependent on edition; I don't know how Goodreads determines which edition to provide.
-- `popularShelves` will return at most 100 shelves.
-- `publicationYear` will be a negative number for books published BC.
-
-#### Goodreads API endpoints
-- author.books
-- search.books
-- reviews.list
 
 
 

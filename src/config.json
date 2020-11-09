@@ -1,3 +1,6 @@
 {
+    "booksByUser": {
+        "pagingCountLimit": 200
+    },
     "goodreadsUrl": "https://goodreads.com"
 }

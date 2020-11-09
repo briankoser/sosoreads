@@ -1,4 +1,5 @@
 const config = require('./config.json');
+const booksByUser = require('./resources/booksByUser')();
 
 const Sosoreads = function(options) {
     if (!options || !options.goodreads_developer_key) throw new Error('Goodreads API developer key is required.');
@@ -16,10 +17,7 @@ const Sosoreads = function(options) {
     /**
      * Retrieves a collection of Books from Goodreads.
      * @param {Object} options - Options for retrieving Books
-     * @param {string} [options.authorId] - Goodreads Author ID. If the consumer provides authorId, userId and searchQuery will be ignored.
-     * @param {string} [options.searchQuery] - Query text to match against the user's books. Consumer must provide either userId or searchQuery (or both).
-     * @param {string} [options.shelf] - Goodreads shelf from which to retrieve books. Only used if userId is provided.
-     * @param {string} [options.userId] - Goodreads User ID. Consumer must provide either userId or searchQuery (or both).
+     * @param {string} options.searchQuery - Query text with which to search books.
      * @param {string} [options.paging] - Options for paging results
      * @param {int} [options.paging.count] - Number of books to retrieve. Supported options: 1-200
      * @param {int} [options.paging.number] - Page of books to retrieve.
@@ -29,19 +27,14 @@ const Sosoreads = function(options) {
      * @returns {Promise} Promise object representing an array of Sosoreads Book objects
      */
     let getBooks = function(options) {
-        let requestOptions = createGetBooksOptions(options);
-        // request goodreads search.books (axios)
-        // transform xml to json (xml2js)
-        // transform json to response
+        console.log('Not implemented')
+        return Promise.resolve();
     }
 
     /**
      * Retrieves a collection of Books from Goodreads by Author.
      * @param {Object} options - Options for retrieving Books
-     * @param {string} [options.authorId] - Goodreads Author ID. If the consumer provides authorId, userId and searchQuery will be ignored.
-     * @param {string} [options.searchQuery] - Query text to match against the user's books. Consumer must provide either userId or searchQuery (or both).
-     * @param {string} [options.shelf] - Goodreads shelf from which to retrieve books. Only used if userId is provided.
-     * @param {string} [options.userId] - Goodreads User ID. Consumer must provide either userId or searchQuery (or both).
+     * @param {string} options.authorId - Goodreads Author ID
      * @param {string} [options.paging] - Options for paging results
      * @param {int} [options.paging.count] - Number of books to retrieve. Supported options: 1-200
      * @param {int} [options.paging.number] - Page of books to retrieve.
@@ -51,23 +44,16 @@ const Sosoreads = function(options) {
      * @returns {Promise} Promise object representing an array of Sosoreads Book objects
      */
     let getBooksByAuthor = function(options) {
-        let requestOptions = createGetBooksByAuthorOptions(options);
-        // request goodreads author.books (axios)
-        // transform xml to json (xml2js)
-        // transform json to response
+        console.log('Not implemented')
+        return Promise.resolve();
     }
-
-    let createGetBooksByAuthorOptions = function(options) {
-        return {};
-    };
 
     /**
      * Retrieves a collection of Books from Goodreads by User.
      * @param {Object} options - Options for retrieving Books
-     * @param {string} [options.authorId] - Goodreads Author ID. If the consumer provides authorId, userId and searchQuery will be ignored.
-     * @param {string} [options.searchQuery] - Query text to match against the user's books. Consumer must provide either userId or searchQuery (or both).
-     * @param {string} [options.shelf] - Goodreads shelf from which to retrieve books. Only used if userId is provided.
-     * @param {string} [options.userId] - Goodreads User ID. Consumer must provide either userId or searchQuery (or both).
+     * @param {string} options.userId - Goodreads User ID
+     * @param {string} [options.searchQuery] - Query text with which to search user's books.
+     * @param {string} [options.shelf] - Shelf from which to retrieve books.
      * @param {string} [options.paging] - Options for paging results
      * @param {int} [options.paging.count] - Number of books to retrieve. Supported options: 1-200
      * @param {int} [options.paging.number] - Page of books to retrieve.
@@ -77,17 +63,12 @@ const Sosoreads = function(options) {
      * @returns {Promise} Promise object representing an array of Sosoreads Book objects
      */
     let getBooksByUser = function(options) {
-        // TODO: fix params for all three GetBooks functions
-        // TODO: move createOptions methods to another file
-        let requestOptions = createGetBooksByUserOptions(options);
+        booksByUser.validateOptions(options);
+        let requestOptions = booksByUser.getRequestOptions(options);
         // request goodreads reviews.list (axios)
         // transform xml to json (xml2js)
         // transform json to response
     }
-
-    let createGetBooksByUserOptions = function(options) {
-        return {};
-    };
 
     let getNotifications = function(options) {
         console.log('Not implemented')
@@ -117,6 +98,8 @@ const Sosoreads = function(options) {
     return {
         getAuthor,
         getBook,
+        getBooksByAuthor,
+        getBooksByUser,
         getBooks,
         getNotifications,
         getReviews,
