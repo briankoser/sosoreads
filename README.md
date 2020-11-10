@@ -159,8 +159,10 @@ api.getBooks(options).then(books => {});
 ```
 
 #### Comments
-- When searching by `userId`, you can specify a page size of up to 200 without requiring multiple Goodreads API calls behind the scenes.
+-  The maximum `paging.count` is 200.
 - `searchQuery` search matches against title and author fields.
+- `sort.field` default is `date_updated`
+- `sort.order` default is `desc`
 - The possible values for `authors.role` are 
   - "author"
   - "translator"

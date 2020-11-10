@@ -9,11 +9,21 @@ const options = {
 };
 const api = sosoreads(options);
 
-const getAuthorOptions = {
-    "authorId": "2687"
+const booksByUserOptions = {
+    "userId": "4812558",
+    "paging": {
+        "count": 30,
+        "number": 1
+    },
+    "searchQuery": "iliad",
+    "shelf": "read",
+    "sort": {
+        "field": "title",
+        "order": "desc"
+    }
 };
 
-api.getAuthor(getAuthorOptions).then();
+api.getBooksByUser(booksByUserOptions);
 
 
 

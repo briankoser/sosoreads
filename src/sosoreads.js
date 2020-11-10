@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const config = require('./config.json');
 const booksByUser = require('./resources/booksByUser')();
 
@@ -64,10 +66,24 @@ const Sosoreads = function(options) {
      */
     let getBooksByUser = function(options) {
         booksByUser.validateOptions(options);
-        let requestOptions = booksByUser.getRequestOptions(options);
-        // request goodreads reviews.list (axios)
+        
+        let requestParams = booksByUser.getRequestParams(options);
+        requestParams.key = options.goodreads_developer_key;
+
+        let url = `${config.goodreadsUrl}/${config.booksByUser.url}`;
+        axios.get(url, {
+            params: requestParams
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+          });
+        
         // transform xml to json (xml2js)
         // transform json to response
+        // error handling
     }
 
     let getNotifications = function(options) {
