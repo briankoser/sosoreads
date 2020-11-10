@@ -12,15 +12,10 @@ const api = sosoreads(options);
 const booksByUserOptions = {
     "userId": "4812558",
     "paging": {
-        "count": 30,
+        "count": 3,
         "number": 1
     },
-    "searchQuery": "iliad",
-    "shelf": "read",
-    "sort": {
-        "field": "title",
-        "order": "desc"
-    }
+    "shelf": "read"
 };
 
 api.getBooksByUser(booksByUserOptions);

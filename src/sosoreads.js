@@ -1,10 +1,12 @@
 const axios = require('axios');
+const xml2js = require('xml2js');
 
 const config = require('./config.json');
 const booksByUser = require('./resources/booksByUser')();
 
 const Sosoreads = function(options) {
-    if (!options || !options.goodreads_developer_key) throw new Error('Goodreads API developer key is required.');
+    let globalOptions = options;
+    if (!globalOptions || !globalOptions.goodreads_developer_key) throw new Error('Goodreads API developer key is required.');
     
     let getAuthor = function(options) {
         console.log('Not implemented')
@@ -68,22 +70,36 @@ const Sosoreads = function(options) {
         booksByUser.validateOptions(options);
         
         let requestParams = booksByUser.getRequestParams(options);
-        requestParams.key = options.goodreads_developer_key;
+        requestParams.key = globalOptions.goodreads_developer_key;
 
-        let url = `${config.goodreadsUrl}/${config.booksByUser.url}`;
+        let url = `${config.goodreadsUrl}/${config.booksByUser.url}/${options.userId}.xml`;
         axios.get(url, {
             params: requestParams
         })
         .then(function (response) {
-            console.log(response);
+            return xml2js.parseStringPromise(response.data);
+        })
+        .then(function (result) {
+            console.log(result);
         })
         .catch(function (error) {
-            console.log(error);
-          });
+            if (error.response) {
+                console.log(error.response.status);
+                console.log(error.response.data);
+                if (response.status === 401) 
+                    throw new Error('Goodreads developer key is invalid');
+                else
+                    throw new Error('Goodreads processing error');
+            } else if (error.request) {
+                console.log(error.request);
+                throw new Error('Goodreads did not respond')
+            } else {
+                console.log('Sosoreads Error', error.message);
+            }
+            console.log(error.config);
+        });
         
-        // transform xml to json (xml2js)
         // transform json to response
-        // error handling
     }
 
     let getNotifications = function(options) {
