@@ -4,12 +4,12 @@ const sosoreads = require('./sosoreads');
 
 // test
 const options = {
-    "goodreads_developer_key": 'YOUR_GOODREADS_DEVELOPER_KEY',
+    "goodreads_developer_key": "YOUR_GOODREADS_DEVELOPER_KEY",
     "oauth_token": "YOUR_OAUTH_TOKEN"
 };
 const api = sosoreads(options);
 
-const booksByUserOptions = {
+const reviewsOptions = {
     "userId": "4812558",
     "paging": {
         "count": 3,
@@ -18,7 +18,7 @@ const booksByUserOptions = {
     "shelf": "read"
 };
 
-api.getBooksByUser(booksByUserOptions);
+api.getReviews(reviewsOptions).then(function(reviews) { console.log(JSON.stringify(reviews))});
 
 
 

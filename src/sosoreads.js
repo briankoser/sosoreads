@@ -2,7 +2,7 @@ const axios = require('axios');
 const xml2js = require('xml2js');
 
 const config = require('./config.json');
-const booksByUser = require('./resources/booksByUser')();
+const reviews = require('./resources/reviews')();
 
 const Sosoreads = function(options) {
     let globalOptions = options;
@@ -52,37 +52,44 @@ const Sosoreads = function(options) {
         return Promise.resolve();
     }
 
+    let getNotifications = function(options) {
+        console.log('Not implemented')
+        return Promise.resolve();
+    }
+
+    let getReview = function(options) {
+        console.log('Not implemented')
+        return Promise.resolve();
+    }
+
     /**
-     * Retrieves a collection of Books from Goodreads by User.
-     * @param {Object} options - Options for retrieving Books
+     * Retrieves a collection of Reviews from Goodreads by User.
+     * @param {Object} options - Options for retrieving Reviews
      * @param {string} options.userId - Goodreads User ID
-     * @param {string} [options.searchQuery] - Query text with which to search user's books.
-     * @param {string} [options.shelf] - Shelf from which to retrieve books.
+     * @param {string} [options.searchQuery] - Query text with which to search user's reviews.
+     * @param {string} [options.shelf] - Shelf from which to retrieve reviews.
      * @param {string} [options.paging] - Options for paging results
-     * @param {int} [options.paging.count] - Number of books to retrieve. Supported options: 1-200
-     * @param {int} [options.paging.number] - Page of books to retrieve.
+     * @param {int} [options.paging.count] - Number of reviews to retrieve. Supported options: 1-200
+     * @param {int} [options.paging.number] - Page of reviews to retrieve.
      * @param {string} [options.sort] - Options for sorting results
      * @param {string} [options.sort.field] - Field to sort by. Supported options: title, author, cover, rating, year_pub, date_pub, date_pub_edition, date_started, date_read, date_updated, date_added, recommender, avg_rating, num_ratings, review, read_count, votes, random, comments, notes, isbn, isbn13, asin, num_pages, format, position, shelves, owned, date_purchased, purchase_location, condition
      * @param {string} [options.sort.order] - Direction to sort. Supported options: asc, desc (default is asc)
-     * @returns {Promise} Promise object representing an array of Sosoreads Book objects
+     * @returns {Promise} Promise object representing an array of Sosoreads Review objects
      */
-    let getBooksByUser = function(options) {
-        booksByUser.validateOptions(options);
+    let getReviews = function(options) {
+        reviews.validateOptions(options);
         
-        let requestParams = booksByUser.getRequestParams(options);
+        let requestParams = reviews.getRequestParams(options);
         requestParams.key = globalOptions.goodreads_developer_key;
 
-        let url = `${config.goodreadsUrl}/${config.booksByUser.url}/${options.userId}.xml`;
-        axios.get(url, {
+        let url = `${config.goodreadsUrl}/${config.reviews.url}/${options.userId}.xml`;
+        
+        return axios.get(url, {
             params: requestParams
         })
-        .then(function (response) {
-            return xml2js.parseStringPromise(response.data);
-        })
-        .then(function (result) {
-            console.log(result);
-        })
-        .catch(function (error) {
+        .then(response => xml2js.parseStringPromise(response.data))
+        .then(result => reviews.goodreadsToResponse(result))
+        .catch(error => {
             if (error.response) {
                 console.log(error.response.status);
                 console.log(error.response.data);
@@ -98,18 +105,6 @@ const Sosoreads = function(options) {
             }
             console.log(error.config);
         });
-        
-        // transform json to response
-    }
-
-    let getNotifications = function(options) {
-        console.log('Not implemented')
-        return Promise.resolve();
-    }
-
-    let getReviews = function(options) {
-        console.log('Not implemented')
-        return Promise.resolve();
     }
 
     let getSeries = function(options) {
@@ -131,9 +126,9 @@ const Sosoreads = function(options) {
         getAuthor,
         getBook,
         getBooksByAuthor,
-        getBooksByUser,
         getBooks,
         getNotifications,
+        getReview,
         getReviews,
         getSeries,
         getShelves,

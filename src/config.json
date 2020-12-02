@@ -1,12 +1,12 @@
 {
     "ascending": "asc",
     "ascendingGoodreads": "a",
-    "booksByUser": {
+    "descending": "desc",
+    "descendingGoodreads": "d",
+    "goodreadsUrl": "https://www.goodreads.com",
+    "reviews": {
         "defaultSortField": "date_updated",
         "pagingCountLimit": 200,
         "url": "review/list"
-    },
-    "descending": "desc",
-    "descendingGoodreads": "d",
-    "goodreadsUrl": "https://www.goodreads.com"
+    }
 }

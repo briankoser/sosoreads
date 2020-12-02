@@ -26,7 +26,7 @@ The Goodreads API's default page size for paged collections is 30 (the exception
 
 
 ## Done
-### Books by User
+### Reviews
 
 #### Example Requests
 ```js
@@ -44,136 +44,102 @@ const options = {
     }
 }
 
-api.getBooks(options).then(books => {});
+api.getReviews(options).then(books => {});
 ```
 
 #### Example Response
 ```json
 {
-    "books": [{
-        "authors": [{
-            "averageRating": "3.81",
-            "id": "903",
-            "images": {
-                "large": "https://images.gr-assets.com/authors/1390672749p7/903.jpg",
-                "small": "https://images.gr-assets.com/authors/1390672749p2/903.jpg"
+    "reviews": [{
+        "body": "I'm a fan of the bad book club podcast 372 Pages We'll Never Get Back, and a fan of many of the books they've covered. I built a fan-fiction Choose Your Own Adventure game (372adventure.com). I wrote a 3,212 word review of Trucking through Time, the highest-rated review of Trucking through Time on Goodreads. We've invited friends over for an Eye of Argon reading party.<br /><br />I don't say any of this to brag. I say it so that you can fully understand the following statement: Moon People is the greatest of them all. I didn't think I could love a 1-star book more than Trucking through Time, but I was wrong. So very wrong.",
+        "book": {
+            "authors": [{
+                "id": "2975072",
+                "images": {
+                    "large": "https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png",
+                    "small": "https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png"
+                },
+                "name": "Dale M. Courtney",
+                "ratings": {
+                    "average": 2.77,
+                    "count": 135
+                },
+                "role": "author",
+                "url": "https://www.goodreads.com/author/show/2975072.Dale_M_Courtney"
+            }],
+            "descriptions": {
+                "short": "This Book is based on the turning point for Earth into a new era of space travel and the beginning of the Age of Aquarius.",
+                "full": "This Book is based on the turning point for Earth into a new era of space travel and the beginning of the Age of Aquarius. The story focuses on one Man by the Name of David Braymer and his adventures from High school teacher to 1st Science Officer on board the Lunar Base 1 Mobile Base Station and his encounters with Alien Life forms through out our universe and the space Battle of all battles David experiences. I hope you enjoy the many adventures of David Braymer and his conquest in space and our journey into the Age of Aquarius"
             },
-            "name": "Homer",
-            "ratingsCount": 1282996,
-            "role": "author",
-            "url": "https://www.goodreads.com/author/show/903.Homer"
-        }, {
-            "averageRating": "3.89",
-            "id": "1005",
-            "images": {
-                "large": "https://images.gr-assets.com/authors/1279895687p5/1005.jpg",
-                "small": "https://images.gr-assets.com/authors/1279895687p2/1005.jpg"
+            "edition": {
+                "format": "Mass Market Paperback",
+                "publisher": "Penguin Classics",
+                "year": "2008"
             },
-            "name": "Robert Fagles",
-            "ratingsCount": 407366,
-            "role": "translator",
-            "url": "https://www.goodreads.com/author/show/1005.Robert_Fagles"
-        }],
-        "descriptions": {
-            "short": "This groundbreaking English version by Robert Fagles is the most important recent translation of Homer's great epic poem.",
-            "full": "This groundbreaking English version by Robert Fagles is the most important recent translation of Homer's great epic poem. The verse translation has been hailed by scholars as the new standard, providing an Iliad that delights modern sensibility and aesthetic without sacrificing the grandeur and particular genius of Homer's own style and language. The Iliad is one of the two great epics of Homer, and is typically described as one of the greatest war stories of all time, but to say the Iliad is a war story does not begin to describe the emotional sweep of its action and characters: Achilles, Helen, Hector, and other heroes of Greek myth and history in the tenth and final year of the Greek siege of Troy."
-        },
-        "id": "117929",
-        "images": {
-            "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SX98_.jpg",
-            "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482528464l/117929._SY75_.jpg"
-        },
-        "isbn": "0140445927",
-        "isbn13": "9780140445923",
-        "originalPublicationYear": "-750",
-        "pageCount": 683,
-        "popularShelves": [{
-            "count": 215075,
-            "name": "to-read"        
-        }, {
-            "count": 15438,
-            "name": "currently-reading"        
-        }],
-        "publisher": "Penguin Classics",
-        "ratings": {
-            "average": "3.87",
-            "count": 346167,
-            "distribution": {
-                "five": 115210,
-                "four": 113155,
-                "three": 83415,
-                "two": 24967,
-                "one": 9420
-            }
-        },
-        "series": [{
-            "count": 8,
-            "name": "Epic Cycle",
-            "positionInSeries": 2
-        }],
-        "similarBooks": [{
-            "author": {
-                "id": "919",
-                "name": "Virgil",
-                "url": "https://www.goodreads.com/author/show/919.Virgil"
-            },
-            "id": "12914",
+            "id": "6584471",
             "images": {
                 "large": "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
                 "small": "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png"
             },
-            "isbn": "0679729526",
-            "isbn13": "9780679729525",
-            "pageCount": 442,
+            "isbn": "1436372135",
+            "isbn13": "9781436372138",
+            "owned": false,
+            "pageCount": 123,
+            "publicationYear": "1991",
             "ratings": {
-                "average": "3.87",
-                "count": 346167
+                "average": 2.63,
+                "count": 120
             },
-            "title": "The Aeneid",
-            "url": "https://www.goodreads.com/book/show/117929.The_Iliad"
-        }, {
-            "author": {
-                "id": "4699102",
-                "name": "Unknown",
-                "url": "https://www.goodreads.com/author/show/4699102.Unknown"
-            },
-            "id": "52357",
-            "images": {
-                "large": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SX98_.jpg",
-                "small": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878125l/52357._SY75_.jpg"
-            },
-            "isbn": "0393320979",
-            "isbn13": "9780393320978",
-            "pageCount": 245,
-            "ratings": {
-                "average": "3.87",
-                "count": 346167
-            },
-            "title": "Beowulf",
-            "url": "https://www.goodreads.com/book/show/52357.Beowulf"
-        }],
-        "title": "The Iliad",
-        "url": "https://www.goodreads.com/book/show/117929.The_Iliad"
-    }]
+            "reviewCount": 49,
+            "shelves": [
+                {
+                    "exclusive": true,
+                    "id": "15377251",
+                    "name": "read"
+                }, {
+                    "exclusive": false,
+                    "id": "302308344",
+                    "name": "372-pages"
+                }
+            ],
+            "title": "Moon People",
+            "url": "https://www.goodreads.com/book/show/6584471-moon-people"
+        },
+        "commentsCount": 0,
+        "dates": {
+            "add": "2020-02-16T11:33:07-08:00",
+            "end": "2020-03-04",
+            "start": "2020-02-16",
+            "update": "2020-03-04T19:54:53-08:00"
+        },
+        "id": "3193280293",
+        "isSpoiler": false,
+        "rating": 1,
+        "readCount": 1,
+        "recommendedBy": "372 Pages We'll Never Get Back Podcast",
+        "recommendedFor": "Fans of bad books",
+        "url": "https://www.goodreads.com/review/show/3193280293",
+        "votes": "0"
+    }
 }
 ```
 
 #### Comments
--  The maximum `paging.count` is 200.
+- A review is a many-to-many link between users and books. The entity contains reviews, ratings, shelves, and book and user data.
+- The maximum `paging.count` is 200.
 - `searchQuery` search matches against title and author fields.
 - `sort.field` default is `date_updated`
 - `sort.order` default is `desc`
+- Goodreads never returns more than one author for this resource. To get all authors, use `Book`.
 - The possible values for `authors.role` are 
   - "author"
   - "translator"
-- `description.long` is provided by Goodreads. `description.short` will be the first sentence from the long description.
+- `descriptions.long` is provided by Goodreads. `descriptions.short` will be the first sentence from the long description.
 - `pageCount` and `publisher` are obviously dependent on edition; I don't know how Goodreads determines which edition to provide.
 - `popularShelves` will return at most 100 shelves.
 - `publicationYear` will be a negative number for books published BC.
 
 #### Goodreads API endpoints
-- author.books
-- search.books
 - reviews.list
 
 
@@ -182,13 +148,13 @@ api.getBooks(options).then(books => {});
 - [x] Request/response contracts
 - [x] Basic structure
 - [x] Unit tests
-- [ ] BooksByUser
+- [x] Reviews
 - [ ] Add to npm
 - [ ] Author
 - [ ] Book
 - [ ] Books
 - [ ] BooksByAuthor
-- [ ] Reviews
+- [ ] Review
 - [ ] Series
 - [ ] Shelves
 - [ ] User
@@ -238,7 +204,6 @@ api.getAuthor(options).then(author => {});
 ```json
 {
     "about": "<b>Dan Simmons</b> grew up in various cities and small towns in the Midwest, including Brimfield, Illinois, which was the source of his fictional \"Elm Haven\" in 1991's SUMMER OF NIGHT and 2002's A WINTER HAUNTING.",
-    "averageRating": "4.08",
     "booksCount": 188,
     "dates": {
         "born": "1948-04-04",
@@ -263,14 +228,17 @@ api.getAuthor(options).then(author => {});
             "url": "https://www.goodreads.com/author/show/3389.Stephen_King"
         }],
     "name": "Dan Simmons",
-    "ratingsCount": 4184744,
+    "ratings": {
+        "average": 4.08,
+        "count": 4184744
+    },
     "url": "https://www.goodreads.com/author/show/2687.Dan_Simmons"
 }
 ```
 
 #### Comments
 - For requests, if `authorId` is provided, `authorName` is ignored.
-- Calls Goodreads endpoint `book.show` to get `averageRating` and `ratingsCount`.
+- Calls Goodreads endpoint `book.show` to get `ratings`.
 
 #### Goodreads API endpoints
 - author.show
@@ -302,25 +270,29 @@ api.getBook(options).then(book => {});
 ```json
 {
     "authors": [{
-        "averageRating": "3.81",
         "id": "903",
         "images": {
             "large": "https://images.gr-assets.com/authors/1390672749p7/903.jpg",
             "small": "https://images.gr-assets.com/authors/1390672749p2/903.jpg"
         },
         "name": "Homer",
-        "ratingsCount": 1282996,
+        "ratings": {
+            "average": 3.81,
+            "count": 1282996
+        },
         "role": "author",
         "url": "https://www.goodreads.com/author/show/903.Homer"
     }, {
-        "averageRating": "3.89",
         "id": "1005",
         "images": {
             "large": "https://images.gr-assets.com/authors/1279895687p5/1005.jpg",
             "small": "https://images.gr-assets.com/authors/1279895687p2/1005.jpg"
         },
         "name": "Robert Fagles",
-        "ratingsCount": 407366,
+        "ratings": {
+            "average": 3.89,
+            "count": 407366
+        },
         "role": "translator",
         "url": "https://www.goodreads.com/author/show/1005.Robert_Fagles"
     }],
@@ -346,7 +318,7 @@ api.getBook(options).then(book => {});
     }],
     "publisher": "Penguin Classics",
     "ratings": {
-        "average": "3.87",
+        "average": 3.87,
         "count": 346167,
         "distribution": {
             "five": 115210,
@@ -376,7 +348,7 @@ api.getBook(options).then(book => {});
         "isbn13": "9780679729525",
         "pageCount": 442,
         "ratings": {
-            "average": "3.87",
+            "average": 3.87,
             "count": 346167
         },
         "title": "The Aeneid",
@@ -396,7 +368,7 @@ api.getBook(options).then(book => {});
         "isbn13": "9780393320978",
         "pageCount": 245,
         "ratings": {
-            "average": "3.87",
+            "average": 3.87,
             "count": 346167
         },
         "title": "Beowulf",
@@ -448,25 +420,29 @@ api.getBooks(options).then(books => {});
 {
     "books": [{
         "authors": [{
-            "averageRating": "3.81",
             "id": "903",
             "images": {
                 "large": "https://images.gr-assets.com/authors/1390672749p7/903.jpg",
                 "small": "https://images.gr-assets.com/authors/1390672749p2/903.jpg"
             },
             "name": "Homer",
-            "ratingsCount": 1282996,
+            "ratings": {
+                "average": 3.81,
+                "count": 1282996
+            },
             "role": "author",
             "url": "https://www.goodreads.com/author/show/903.Homer"
         }, {
-            "averageRating": "3.89",
             "id": "1005",
             "images": {
                 "large": "https://images.gr-assets.com/authors/1279895687p5/1005.jpg",
                 "small": "https://images.gr-assets.com/authors/1279895687p2/1005.jpg"
             },
             "name": "Robert Fagles",
-            "ratingsCount": 407366,
+            "ratings": {
+                "average": 3.89,
+                "count": 407366
+            },
             "role": "translator",
             "url": "https://www.goodreads.com/author/show/1005.Robert_Fagles"
         }],
@@ -522,7 +498,7 @@ api.getBooks(options).then(books => {});
             "isbn13": "9780679729525",
             "pageCount": 442,
             "ratings": {
-                "average": "3.87",
+                "average": 3.87,
                 "count": 346167
             },
             "title": "The Aeneid",
@@ -542,7 +518,7 @@ api.getBooks(options).then(books => {});
             "isbn13": "9780393320978",
             "pageCount": 245,
             "ratings": {
-                "average": "3.87",
+                "average": 3.87,
                 "count": 346167
             },
             "title": "Beowulf",
@@ -593,25 +569,29 @@ api.getBooks(options).then(books => {});
 {
     "books": [{
         "authors": [{
-            "averageRating": "3.81",
             "id": "903",
             "images": {
                 "large": "https://images.gr-assets.com/authors/1390672749p7/903.jpg",
                 "small": "https://images.gr-assets.com/authors/1390672749p2/903.jpg"
             },
             "name": "Homer",
-            "ratingsCount": 1282996,
+            "ratings": {
+                "average": 3.81,
+                "count": 1282996
+            },
             "role": "author",
             "url": "https://www.goodreads.com/author/show/903.Homer"
         }, {
-            "averageRating": "3.89",
             "id": "1005",
             "images": {
                 "large": "https://images.gr-assets.com/authors/1279895687p5/1005.jpg",
                 "small": "https://images.gr-assets.com/authors/1279895687p2/1005.jpg"
             },
             "name": "Robert Fagles",
-            "ratingsCount": 407366,
+            "ratings": {
+                "average": 3.89,
+                "count": 407366
+            },
             "role": "translator",
             "url": "https://www.goodreads.com/author/show/1005.Robert_Fagles"
         }],
@@ -637,7 +617,7 @@ api.getBooks(options).then(books => {});
         }],
         "publisher": "Penguin Classics",
         "ratings": {
-            "average": "3.87",
+            "average": 3.87,
             "count": 346167,
             "distribution": {
                 "five": 115210,
@@ -687,7 +667,7 @@ api.getBooks(options).then(books => {});
             "isbn13": "9780393320978",
             "pageCount": 245,
             "ratings": {
-                "average": "3.87",
+                "average": 3.87,
                 "count": 346167
             },
             "title": "Beowulf",
@@ -781,14 +761,14 @@ api.getNotifications(options).then(notifications => {});
 
 
 
-### Reviews
+### Review
 #### Example Requests
 ```js
 const options = {
     "reviewId": "2kYIBVxcqaN4mdfclzwVQ"
 }
 
-api.getReviews(options).then(review => {});
+api.getReview(options).then(review => {});
 ```
 
 ```js
@@ -797,7 +777,7 @@ const options = {
     "bookId": "50"
 }
 
-api.getReviews(options).then(review => {});
+api.getReview(options).then(review => {});
 ```
 
 #### Example Response
@@ -805,14 +785,16 @@ api.getReviews(options).then(review => {});
 {
     "book": {
         "authors": [{
-            "averageRating": "2.77",
             "id": "2975072",
             "images": {
                 "large": "https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png",
                 "small": "https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png"
             },
             "name": "Dale M. Courtney",
-            "ratingsCount": 135,
+            "ratings": {
+                "average": 2.77,
+                "count": 135
+            },
             "role": "author",
             "url": "https://www.goodreads.com/author/show/2975072.Dale_M_Courtney"
         }],
@@ -831,7 +813,7 @@ api.getReviews(options).then(review => {});
         "pageCount": 123,
         "publisher": "Penguin Classics",
         "ratings": {
-            "average": "2.63",
+            "average": 2.63,
             "count": 120
         },
         "reviewCount": 49,
@@ -906,7 +888,7 @@ api.getReviews(options).then(review => {});
 ```
 
 #### Comments
-- Reviews is a many-to-many link between users and books. The entity contains reviews, ratings, shelves, and book and user data.
+- A review is a many-to-many link between users and books. The entity contains reviews, ratings, shelves, and book and user data.
 - For requests, if `reviewId` is provided, `userId` and `bookId` are ignored.
 - Will require registered app and OAuth after adding `owned_books` data.
 
@@ -1066,7 +1048,7 @@ api.getUser(options).then(user => {});
                 "id": "4788285",
                 "name": "Tara Gilesbie",
                 "ratings": {
-                    "average": "3.88",
+                    "average": 3.88,
                     "count": 1275
                 },
                 "role": "author",
