@@ -1,7 +1,6 @@
 const axios = require('axios');
 const xml2js = require('xml2js');
 
-const config = require('./config.json');
 const reviews = require('./resources/reviews')();
 
 const Sosoreads = function(options) {
@@ -77,18 +76,42 @@ const Sosoreads = function(options) {
      * @returns {Promise} Promise object representing an array of Sosoreads Review objects
      */
     let getReviews = function(options) {
-        reviews.validateOptions(options);
-        
-        let requestParams = reviews.getRequestParams(options);
-        requestParams.key = globalOptions.goodreads_developer_key;
+        return get(reviews, options);
+    }
 
-        let url = `${config.goodreadsUrl}/${config.reviews.url}/${options.userId}.xml`;
+    let getSeries = function(options) {
+        console.log('Not implemented')
+        return Promise.resolve();
+    }
+
+    let getShelves = function(options) {
+        console.log('Not implemented')
+        return Promise.resolve();
+    }
+
+    let getUser = function(options) {
+        console.log('Not implemented')
+        return Promise.resolve();
+    }
+
+    /**
+     * Retrieves a resource from Goodreads.
+     * @param {Object} resource - The code for handling the Sosoreads resource
+     * @param {Object} options - Options for retrieving the resource
+     * @returns {Promise} Promise object representing one or many Sosoreads resource objects
+     */
+    let get = function(resource, options) {
+        resource.validateOptions(options);
+        
+        let requestParams = resource.getRequestParams(options);
+        requestParams.key = globalOptions.goodreads_developer_key;
+        let url = resource.getUrl(options);
         
         return axios.get(url, {
             params: requestParams
         })
         .then(response => xml2js.parseStringPromise(response.data))
-        .then(result => reviews.goodreadsToResponse(result))
+        .then(result => resource.goodreadsToResponse(result))
         .catch(error => {
             if (error.response) {
                 console.log(error.response.status);
@@ -105,21 +128,6 @@ const Sosoreads = function(options) {
             }
             console.log(error.config);
         });
-    }
-
-    let getSeries = function(options) {
-        console.log('Not implemented')
-        return Promise.resolve();
-    }
-
-    let getShelves = function(options) {
-        console.log('Not implemented')
-        return Promise.resolve();
-    }
-
-    let getUser = function(options) {
-        console.log('Not implemented')
-        return Promise.resolve();
     }
   
     return {
