@@ -1,4 +1,5 @@
 const config = require('../config.json');
+const dateUtilities = require('../utilities/DateUtilities')();
 const stringUtilities = require('../utilities/StringUtilities')();
 
 const Reviews = function() {
@@ -35,110 +36,74 @@ const Reviews = function() {
     };
 
     let goodreadsToResponse = function(goodreadsResponse) {
-        // {
-        //     "reviews": [{
-        //         "body": "I'm a fan of the bad book club podcast 372 Pages We'll Never Get Back, and a fan of many of the books they've covered. I built a fan-fiction Choose Your Own Adventure game (372adventure.com). I wrote a 3,212 word review of Trucking through Time, the highest-rated review of Trucking through Time on Goodreads. We've invited friends over for an Eye of Argon reading party.<br /><br />I don't say any of this to brag. I say it so that you can fully understand the following statement: Moon People is the greatest of them all. I didn't think I could love a 1-star book more than Trucking through Time, but I was wrong. So very wrong.",
-        //         "book": {
-        //             "authors": [{
-        //                 "id": "2975072",
-        //                 "images": {
-        //                     "large": "https://s.gr-assets.com/assets/nophoto/user/u_200x266-e183445fd1a1b5cc7075bb1cf7043306.png",
-        //                     "small": "https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png"
-        //                 },
-        //                 "name": "Dale M. Courtney",
-        //                 "ratings": {
-        //                     "average": 2.77,
-        //                     "count": 135
-        //                 },
-        //                 "role": "author",
-        //                 "url": "https://www.goodreads.com/author/show/2975072.Dale_M_Courtney"
-        //             }],
-        //             "descriptions": {
-        //                 "short": "This Book is based on the turning point for Earth into a new era of space travel and the beginning of the Age of Aquarius.",
-        //                 "full": "This Book is based on the turning point for Earth into a new era of space travel and the beginning of the Age of Aquarius. The story focuses on one Man by the Name of David Braymer and his adventures from High school teacher to 1st Science Officer on board the Lunar Base 1 Mobile Base Station and his encounters with Alien Life forms through out our universe and the space Battle of all battles David experiences. I hope you enjoy the many adventures of David Braymer and his conquest in space and our journey into the Age of Aquarius"
-        //             },
-        //             "edition": {
-        //                 "format": "Mass Market Paperback",
-        //                 "publisher": "Penguin Classics",
-        //                 "year": "2008"
-        //             },
-        //             "id": "6584471",
-        //             "images": {
-        //                 "large": "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png",
-        //                 "small": "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png"
-        //             },
-        //             "isbn": "1436372135",
-        //             "isbn13": "9781436372138",
-        //             "owned": false,
-        //             "pageCount": 123,
-        //             "publicationYear": "1991",
-        //             "ratings": {
-        //                 "average": 2.63,
-        //                 "count": 120
-        //             },
-        //             "reviewCount": 49,
-        //             "shelves": [
-        //                 {
-        //                     "exclusive": true,
-        //                     "id": "15377251",
-        //                     "name": "read"
-        //                 }, {
-        //                     "exclusive": false,
-        //                     "id": "302308344",
-        //                     "name": "372-pages"
-        //                 }
-        //             ],
-        //             "title": "Moon People",
-        //             "url": "https://www.goodreads.com/book/show/6584471-moon-people"
-        //         },
-        //         "commentsCount": 0,
-        //         "dates": {
-        //             "add": "2020-02-16T11:33:07-08:00",
-        //             "end": "2020-03-04",
-        //             "start": "2020-02-16",
-        //             "update": "2020-03-04T19:54:53-08:00"
-        //         },
-        //         "id": "3193280293",
-        //         "isSpoiler": false,
-        //         "rating": 1,
-        //         "readCount": 1,
-        //         "recommendedBy": "372 Pages We'll Never Get Back Podcast",
-        //         "recommendedFor": "Fans of bad books",
-        //         "url": "https://www.goodreads.com/review/show/3193280293",
-        //         "votes": "0"
-        //     }
-        // }
-
         let reviews = goodreadsResponse.GoodreadsResponse.reviews[0].review.map(review => {
             return {
-                "body": review.body[0],
+                "body": review.body[0]?.trim(),
                 "book": {
                     "authors": review.book[0].authors[0].author.map(author => {
                         return {
                             "id": author.id[0],
                             "images": {
-                                "large": author.image_url[0]['_'].trim(),
-                                "small": author.small_image_url[0]['_'].trim()
+                                "large": author.image_url[0]['_']?.trim(),
+                                "small": author.small_image_url[0]['_']?.trim()
                             },
                             "name": author.name[0],
                             "ratings": {
-                                "average": author.average_rating[0],
-                                "count": author.ratingsCount
+                                "average": parseFloat(author.average_rating[0]),
+                                "count": parseInt(author.ratings_count[0])
                             },
                             "role": author.role[0] || "author",
                             "url": author.link[0]
                         }
                     }),
                     "descriptions": {
-                        "short": stringUtilities.firstSentence(review.book[0].description[0]), // todo
+                        "short": stringUtilities.firstSentence(review.book[0].description[0]),
                         "full": review.book[0].description[0]
                     },
+                    "edition": {
+                        "format": review.book[0].format[0],
+                        "pageCount": review.book[0].num_pages[0],
+                        "publisher": review.book[0].publisher[0],
+                        "year": review.book[0].publication_year[0],
+                    },
+                    "id": review.book[0].id[0]['_'],
                     "images": {
                         "large": review.book[0].image_url[0],
                         "small": review.book[0].small_image_url[0]
-                    }
+                    },
+                    "isbn": typeof(review.book[0].isbn[0]) === 'string' ? review.book[0].isbn[0] : '',
+                    "isbn13": typeof(review.book[0].isbn13[0]) === 'string' ? review.book[0].isbn13[0] : '',
+                    "owned": !!review.owned[0],
+                    "ratings": {
+                        "average": parseFloat(review.book[0].average_rating[0]),
+                        "count": parseInt(review.book[0].ratings_count[0])
+                    },
+                    "reviewCount": parseInt(review.book[0].text_reviews_count[0]['_']),
+                    "shelves": review.shelves[0].shelf.map(shelf => {
+                        return {
+                            "exclusive": shelf['$'].exclusive == 'true',
+                            "id": shelf['$'].id,
+                            "name": shelf['$'].name
+                        }
+                    }),
+                    "title": review.book[0].title_without_series[0],
+                    "url": review.book[0].link[0]
+                },
+                "commentsCount": parseInt(review.comments_count[0]),
+                "dates": {
+                    "add": dateUtilities.formatDate(review.date_added[0]),
+                    "end": dateUtilities.formatDate(review.read_at[0]),
+                    "start": dateUtilities.formatDate(review.started_at[0]),
+                    "update": dateUtilities.formatDate(review.date_updated[0])
                 },
                 "id": review.id[0],
+                "isSpoiler": review.spoiler_flag[0] == 'true',
+                "rating": parseInt(review.rating[0]),
+                "readCount": parseInt(review.read_count[0]),
+                "recommendedBy": review.recommended_by[0],
+                "recommendedFor": review.recommended_for[0],
+                "url": review.url[0],
+                "votesCount": parseInt(review.votes[0]),
             };
         });
 

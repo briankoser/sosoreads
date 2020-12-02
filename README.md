@@ -73,6 +73,7 @@ api.getReviews(options).then(books => {});
             },
             "edition": {
                 "format": "Mass Market Paperback",
+                "pageCount": 123,
                 "publisher": "Penguin Classics",
                 "year": "2008"
             },
@@ -84,8 +85,6 @@ api.getReviews(options).then(books => {});
             "isbn": "1436372135",
             "isbn13": "9781436372138",
             "owned": false,
-            "pageCount": 123,
-            "publicationYear": "1991",
             "ratings": {
                 "average": 2.63,
                 "count": 120
@@ -108,8 +107,8 @@ api.getReviews(options).then(books => {});
         "commentsCount": 0,
         "dates": {
             "add": "2020-02-16T11:33:07-08:00",
-            "end": "2020-03-04",
-            "start": "2020-02-16",
+            "end": "2020-03-04T14:44:57-08:00",
+            "start": "2020-02-16T06:03:22-08:00",
             "update": "2020-03-04T19:54:53-08:00"
         },
         "id": "3193280293",
@@ -119,7 +118,7 @@ api.getReviews(options).then(books => {});
         "recommendedBy": "372 Pages We'll Never Get Back Podcast",
         "recommendedFor": "Fans of bad books",
         "url": "https://www.goodreads.com/review/show/3193280293",
-        "votes": "0"
+        "votesCount": 0
     }
 }
 ```
@@ -131,11 +130,10 @@ api.getReviews(options).then(books => {});
 - `sort.field` default is `date_updated`
 - `sort.order` default is `desc`
 - Goodreads never returns more than one author for this resource. To get all authors, use `Book`.
-- The possible values for `authors.role` are 
-  - "author"
-  - "translator"
+- The possible values for `authors.role` are:
+  - author
+  - translator
 - `descriptions.long` is provided by Goodreads. `descriptions.short` will be the first sentence from the long description.
-- `pageCount` and `publisher` are obviously dependent on edition; I don't know how Goodreads determines which edition to provide.
 - `popularShelves` will return at most 100 shelves.
 - `publicationYear` will be a negative number for books published BC.
 

@@ -10,7 +10,6 @@ const interrogativeSentences = 'This is the first sentence? This is the second s
 const exclamatorySentences = 'This is the first sentence! This is the second sentence!';
 const urlSentences = 'This is the first sentence with a goodreads.com url. This is the second sentence.';
 const ellipsisSentences = 'This is the first sentence...still the first sentence. This is the second sentence.';
-const titleSentences = 'Mr. Smith, Mrs. Smith, and Dr. Smith are in the first sentence. This is the second sentence.';
 
 
 
@@ -45,8 +44,4 @@ test('firstSentence handles URLs', () => {
 
 test('firstSentence handles ellipses', () => {
     expect(stringUtilities.firstSentence(ellipsisSentences)).toBe('This is the first sentence...still the first sentence.');
-});
-
-test('firstSentence handles titles', () => {
-    expect(stringUtilities.firstSentence(titleSentences)).toBe('Mr. Smith, Mrs. Smith, and Dr. Smith are in the first sentence.');
 });
