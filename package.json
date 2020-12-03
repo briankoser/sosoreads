@@ -1,7 +1,7 @@
 {
   "name": "sosoreads",
-  "version": "0.0.1",
-  "description": "*Another Node Goodreads wrapper*",
+  "version": "0.0.2",
+  "description": "Another Node Goodreads wrapper",
   "main": "src/index.js",
   "scripts": {
     "test": "jest"
