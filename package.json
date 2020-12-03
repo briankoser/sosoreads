@@ -1,7 +1,7 @@
 {
   "name": "sosoreads",
-  "version": "0.0.1",
-  "description": "*Another Node Goodreads wrapper*",
+  "version": "0.1.0",
+  "description": "Another Node Goodreads wrapper",
   "main": "src/index.js",
   "scripts": {
     "test": "jest"
@@ -22,5 +22,11 @@
   "homepage": "https://github.com/briankoser/sosoreads#readme",
   "devDependencies": {
     "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "date-fns": "^2.16.1",
+    "node": "^15.0.1",
+    "xml2js": "^0.4.23"
   }
 }
