@@ -1,6 +1,7 @@
 const axios = require('axios');
 const xml2js = require('xml2js');
 
+const objectUtilities = require('./utilities/ObjectUtilities')();
 const reviews = require('./resources/reviews')();
 
 const Sosoreads = function(options) {
@@ -112,6 +113,7 @@ const Sosoreads = function(options) {
         })
         .then(response => xml2js.parseStringPromise(response.data))
         .then(result => resource.goodreadsToResponse(result))
+        .then(result => objectUtilities.removeFalsyProperties(result))
         .catch(error => {
             if (error.response) {
                 console.log(error.response.status);
@@ -129,7 +131,7 @@ const Sosoreads = function(options) {
             console.log(error.config);
         });
     }
-  
+
     return {
         getAuthor,
         getBook,

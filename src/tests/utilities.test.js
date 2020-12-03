@@ -1,8 +1,34 @@
+const objectUtilities = require('../utilities/ObjectUtilities')();
 const stringUtilities = require('../utilities/StringUtilities')();
 
 
 
 // test options
+const testObject = {
+    'p1': 'a',
+    'p2': '',
+    'p3': 1,
+    'p4': 0,
+    'p5': true,
+    'p6': false,
+    'p7': null,
+    'p8': undefined,
+    'p9': {
+        'p10': 'b'
+    },
+    'p11': {
+        'p12': ''
+    }
+};
+const truthyObject = {
+    'p1': 'a',
+    'p3': 1,
+    'p5': true,
+    'p9': {
+        'p10': 'b'
+    },
+    'p11': {}
+};
 const fragment = 'This is a fragment';
 const singleSentence = 'This is a test sentence.';
 const declarativeSentences = 'This is the first sentence. This is the second sentence.';
@@ -14,6 +40,10 @@ const ellipsisSentences = 'This is the first sentence...still the first sentence
 
 
 // tests
+test('removeFalsyProperties should only remove falsy properties', () => {
+    expect(objectUtilities.removeFalsyProperties(testObject)).toEqual(truthyObject);
+});
+
 test('firstSentence returns empty string for empty string', () => {
     expect(stringUtilities.firstSentence('')).toBe('');
 });

@@ -6,10 +6,33 @@ Apparently when Amazon acquired Goodreads they decided to ship their [half-built
 So there are lots of wrappers: 
 - [Goodreads](https://github.com/sosedoff/goodreads) (Ruby) looks like the most popular.
 - [BetterReads](https://github.com/thejessleigh/betterreads) (Python) was my first name idea and looks great. It was built on goodreads2, another Python wrapper.
-- I haven't looked at them in-depth yet, but there are a bunch of Node versions: [fff-graphql-goodreads](https://github.com/mpj/fff-graphql-goodreads), [goodreads-api-node](https://github.com/baahrens/goodreads-api-node), [goodreads.js](https://github.com/AnalogJ/goodreads.js), [goodreads-json](https://github.com/rosnovsky/goodreads-json), [goodreads-json-api](https://github.com/myke11j/goodreads-json-api), [Goodreads review JSON export](https://github.com/remy/goodreads), and [node-goodreads](https://github.com/bdickason/node-goodreads). 
+- A bunch of Node versions: [fff-graphql-goodreads](https://github.com/mpj/fff-graphql-goodreads), [goodreads.js](https://github.com/AnalogJ/goodreads.js), [goodreads-json](https://github.com/rosnovsky/goodreads-json), [goodreads-json-api](https://github.com/myke11j/goodreads-json-api), [Goodreads review JSON export](https://github.com/remy/goodreads), [node-goodreads](https://github.com/bdickason/node-goodreads). 
+
+The best Node implementation is [goodreads-api-node](https://github.com/baahrens/goodreads-api-node): it's mostly complete, including OAuth methods. Unfortunately, for the resources where OAuth is possible, it is required. To avoid that, and to provide my own take on the best API, I've created Sosoreads.
+
+
+
+## Roadmap
+- [x] Documentation
+- [x] Basic structure (v0.1)
+- [x] Unit test framework
+- [x] Reviews
+- [ ] Add to npm (v0.2)
+- [ ] Author (v0.3)
+- [ ] Book (v0.4)
+- [ ] Books (v0.5)
+- [ ] BooksByAuthor (v0.6)
+- [ ] Review (v0.7)
+- [ ] Series (v0.8)
+- [ ] Shelves (v0.9)
+- [ ] User (v1.0)
+- [ ] Write resources (Comments, Shelves, UserBook)
+- [ ] OAuth resources (Notifications, UserBook)
+
+
 
 ## General Notes
-My goal with Sosoreads is to provide a clean interface to the book-related resources. However, I will prioritize performance over "purity". For example, if I were building an API from scratch, I would only return authorIds and role with a book; but Sosoreads will also return the additional author information provided by Goodreads. 
+My goal is to provide a clean interface to the book-related resources. However, I will prioritize performance over "purity". For example, if I were building an API from scratch, I would only return authorIds with a Book; but Sosoreads will also return the additional author information provided by Goodreads. 
 
 I will not implement the social resources (friends, notifications, etc.). 
 
@@ -17,12 +40,31 @@ I will not implement the social resources (friends, notifications, etc.).
 - v2 - write resources (Books to Shelves (shelves.add_to_shelf, shelves.add_books_to_shelves), Comments, Reviews (reviews, owned_books), Shelves)
 - v3 - resources requiring OAuth (Notifications, Reviews (owned_books))
 
-Null or empty fields will not be returned.
+Properties with falsy values ("", 0, false, null, undefined) will not be returned.
 
 All dates follow the [ISO_8601](https://en.m.wikipedia.org/wiki/ISO_8601) standard.
 
 The Goodreads API's default page size for paged collections is 30 (the exception is shelves are paged by 100). This page size is not configurable in the Goodreads API (the exception is when searching Books by UserId). However, for simplicity, sosoreads allows a custom page size for all paged collections. Be aware that custom page sizes that overlap the Goodreads page size may require multiple Goodreads API calls behind the scenes, affecting performance.
 
+
+
+### Installation
+```
+npm install --save sosoreads
+const sosoreads = require('sosoreads');
+```
+
+
+
+### Initialization
+```js
+const options = {
+    "goodreads_developer_key": 'YOUR_GOODREADS_DEVELOPER_KEY',
+    "oauth_token": "YOUR_OAUTH_TOKEN"
+};
+
+const api = sosoreads(options);
+```
 
 
 ## Done
@@ -143,42 +185,6 @@ api.getReviews(options).then(books => {});
 
 
 ## To Do
-- [x] Request/response contracts
-- [x] Basic structure
-- [x] Unit tests
-- [x] Reviews
-- [ ] Add to npm
-- [ ] Author
-- [ ] Book
-- [ ] Books
-- [ ] BooksByAuthor
-- [ ] Review
-- [ ] Series
-- [ ] Shelves
-- [ ] User
-- [ ] v2 write resources (Comments, Shelves, UserBook)
-- [ ] v3 resources requiring OAuth (Notifications, UserBook)
-
-### Installation
-```
-npm install --save sosoreads
-const sosoreads = require('sosoreads');
-```
-
-
-
-### Initialization
-```js
-const options = {
-    "goodreads_developer_key": 'YOUR_GOODREADS_DEVELOPER_KEY',
-    "oauth_token": "YOUR_OAUTH_TOKEN"
-};
-
-const api = sosoreads(options);
-```
-
-
-
 ### Author
 
 #### Example Requests
