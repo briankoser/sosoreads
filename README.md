@@ -17,7 +17,7 @@ The best Node implementation is [goodreads-api-node](https://github.com/baahrens
 - [x] Basic structure
 - [x] Unit test framework
 - [x] Reviews (v0.1)
-- [ ] Add to npm
+- [x] Add to npm
 - [ ] Author (v0.2)
 - [ ] Book (v0.3)
 - [ ] Books (v0.4)
