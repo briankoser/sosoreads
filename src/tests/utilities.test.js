@@ -1,3 +1,4 @@
+const dateUtilities = require('../utilities/DateUtilities')();
 const objectUtilities = require('../utilities/ObjectUtilities')();
 const stringUtilities = require('../utilities/StringUtilities')();
 
@@ -40,6 +41,18 @@ const ellipsisSentences = 'This is the first sentence...still the first sentence
 
 
 // tests
+test('formatDate should format a valid JS-formatted date', () => {
+    expect(dateUtilities.formatDate('Tue Jan 18 14:56:06 -0800 2011')).toEqual(expect.anything());
+});
+
+test('formatDate should return an empty string for an undefined input', () => {
+    expect(dateUtilities.formatDate()).toBe('');
+});
+
+test('formatDate should return an empty string for an empty string input', () => {
+    expect(dateUtilities.formatDate('')).toBe('');
+});
+
 test('removeFalsyProperties should only remove falsy properties', () => {
     expect(objectUtilities.removeFalsyProperties(testObject)).toEqual(truthyObject);
 });
