@@ -1,6 +1,10 @@
 # Sosoreads
 *Another Node Goodreads wrapper*
 
+**Goodreads [announced](https://help.goodreads.com/s/article/Does-Goodreads-support-the-use-of-APIs) that as of 2020-12-08, they are longer issuing new developer keys and will "retire the current version of these tools". So this project is probably not continuing.**
+
+
+
 Apparently when Amazon acquired Goodreads they decided to ship their [half-built API](https://www.goodreads.com/api) and never finish it. Thanks, Amazon.
 
 So there are lots of wrappers: 
